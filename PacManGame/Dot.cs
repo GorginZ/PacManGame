@@ -1,9 +1,8 @@
 namespace PacManGame
 {
-  public class Dot : ICharacter
+  public class Dot
   {
-      public RowColumn CurrentPosition;
+    public RowColumn CurrentPosition;
 
-    RowColumn ICharacter.CurrentPosition => throw new System.NotImplementedException();
   }
 }

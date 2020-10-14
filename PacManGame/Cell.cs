@@ -4,7 +4,7 @@ namespace PacManGame
 {
 public class Cell
     {
-        public CellType CellContents { get; }
+        public CellType CellContents;
         public Cell(CellType cellType)
         {
             CellContents = cellType;

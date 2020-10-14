@@ -5,6 +5,7 @@ namespace PacManGame
   public class Game
   {
     private List<List<Cell>> _cells = new List<List<Cell>>();
+    private PacMan _pacManCharacter = new PacMan(1, 1);
 
     public Game(int height, int width)
     {
@@ -48,6 +49,15 @@ namespace PacManGame
         }
       }
       throw new System.Exception("There is no PacMan!!!!!");
+    }
+
+
+
+    public void Tick()
+    {
+      _pacManCharacter.UpdateCurrentPosition();
+      
+      _cells[_pacManCharacter.CurrentPosition.Row][_pacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
     }
   }
 }

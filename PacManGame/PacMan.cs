@@ -1,6 +1,6 @@
 namespace PacManGame
 {
-  public class PacMan : ICharacter
+  public class PacMan 
   {
     public RowColumn CurrentPosition {get;}
 

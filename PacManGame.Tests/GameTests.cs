@@ -17,29 +17,16 @@ namespace PacManGame.Tests
       Assert.Equal(1, pacmanPosition.Column);
     }
     [Fact]
-    public void PacManCanMoveInAnyValidDirection()
+    public void PacManCanMoveOnTheBoardOnTick()
     {
       var game = new Game(10, 10);
-      var pacmanStartPosition = game.FindPacman();
+      var pacManStartingPosition = game.FindPacman();
 
       game.Tick();
+      var pacManCurrentPosition = game.FindPacman();
 
-      //East
-      Assert.Equal(2, game.FindPacman().Column);
+      Assert.NotEqual(pacManStartingPosition, pacManCurrentPosition);
 
-      // game.Tick();
-      // //Down/South
-      // Assert.Equal(pacmanStartPosition.Column + 1, game.FindPacman().Row - 1);
-
-      // game.Tick();
-
-      //up/ North
-      // Assert.Equal(pacmanStartPosition.Column, game.FindPacman().Column - 1);
-
-      // game.Tick();
-
-      // //West
-      // Assert.Equal(pacmanStartPosition.Column, game.FindPacman().Column - 1);
 
     }
   }

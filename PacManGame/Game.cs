@@ -5,7 +5,9 @@ namespace PacManGame
   public class Game
   {
     private List<List<Cell>> _cells = new List<List<Cell>>();
-    private PacMan _pacManCharacter = new PacMan(1, 1);
+    public PacMan PacManCharacter = new PacMan(1, 1);
+
+
 
     public Game(int height, int width)
     {
@@ -53,11 +55,12 @@ namespace PacManGame
 
 
 
+
     public void Tick()
     {
-      _pacManCharacter.UpdateCurrentPosition();
-      
-      _cells[_pacManCharacter.CurrentPosition.Row][_pacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
+      PacManCharacter.UpdateCurrentPosition();
+
+      _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
     }
   }
 }

@@ -2,6 +2,8 @@ namespace PacManGame
 {
     public interface IUserInput
     {
-          Direction GetUserInput();
+          Direction ParseInputToDirection();
+
+          string ReadInput();
     }
 }

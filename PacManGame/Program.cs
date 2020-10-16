@@ -2,11 +2,19 @@
 
 namespace PacManGame
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+      var game = new Game(10, 10);
+      var userInput = new ConsoleUserInput();
+
+      game.PacManCharacter.Heading = userInput.GetUserInput();
+      Console.WriteLine(game.PacManCharacter.Heading);
+
+
+
     }
+ 
+  }
 }

@@ -4,22 +4,24 @@ namespace PacManGame
 {
   public class ConsoleUserInput : IUserInput
   {
+    public ConsoleKeyInfo InputKey { get; set; }
+    public void ReadInputDirection() => InputKey = Console.ReadKey(true);
+
     public Direction ParseInputToDirection()
     {
-      ConsoleKeyInfo input = Console.ReadKey(true);
-      if (input.Key == ConsoleKey.W)
+      if (InputKey.Key == ConsoleKey.W)
       {
         return Direction.North;
       }
-      else if (input.Key == ConsoleKey.S)
+      else if (InputKey.Key == ConsoleKey.S)
       {
         return Direction.South;
       }
-      else if (input.Key == ConsoleKey.D)
+      else if (InputKey.Key == ConsoleKey.D)
       {
         return Direction.East;
       }
-      else if (input.Key == ConsoleKey.A)
+      else if (InputKey.Key == ConsoleKey.A)
       {
         return Direction.West;
       }
@@ -28,6 +30,5 @@ namespace PacManGame
         throw new InvalidOperationException();
     }
 
-    public string ReadInput() => Console.ReadLine();
   }
 }

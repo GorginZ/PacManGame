@@ -8,13 +8,14 @@ namespace PacManGame
     {
       var game = new Game(10, 10);
       var userInput = new ConsoleUserInput();
-
+      
+      userInput.ReadInputDirection();
       game.PacManCharacter.Heading = userInput.ParseInputToDirection();
       Console.WriteLine(game.PacManCharacter.Heading);
 
 
 
     }
- 
+
   }
 }

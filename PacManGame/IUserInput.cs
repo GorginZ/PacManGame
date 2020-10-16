@@ -1,9 +1,10 @@
 namespace PacManGame
 {
-    public interface IUserInput
-    {
-          Direction ParseInputToDirection();
+  public interface IUserInput
+  {
+    
+    Direction ParseInputToDirection();
 
-          string ReadInput();
-    }
+    void ReadInputDirection();
+  }
 }

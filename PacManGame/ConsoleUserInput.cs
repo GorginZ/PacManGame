@@ -4,7 +4,7 @@ namespace PacManGame
 {
   public class ConsoleUserInput : IUserInput
   {
-    public Direction GetUserInput()
+    public Direction ParseInputToDirection()
     {
       ConsoleKeyInfo input = Console.ReadKey(true);
       if (input.Key == ConsoleKey.W)
@@ -27,5 +27,7 @@ namespace PacManGame
 
         throw new InvalidOperationException();
     }
+
+    public string ReadInput() => Console.ReadLine();
   }
 }

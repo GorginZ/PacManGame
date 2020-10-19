@@ -23,6 +23,10 @@ public class Cell
             {
               return "#";
             }
+             if (CellContents.Equals(CellType.Empty))
+            {
+              return " ";
+            }
             return CellContents.ToString();
         }
     }

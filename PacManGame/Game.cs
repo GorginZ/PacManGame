@@ -32,10 +32,10 @@ namespace PacManGame
       //              + "#.#  #.#   #.##.#   #.#  #.#\n"
       //              + "#.####.#   #.##.#   #.#  #.#\n"
       //              + "#......#####....#   #.####.#\n"
-
       //              + "######.#####.##.#####......#\n"
-      
+
       //              + "#    #.......##.......####.#\n"
+
       //              + "######.#####.##.#####.#  #.#\n"
       //              + ".......#   #.##.#   #.#  #. \n"
       //              + "######.#   #.##.#####.####.#\n"
@@ -62,21 +62,29 @@ new RowColumn(4,0),new RowColumn(4,2),new RowColumn(4,3),new RowColumn(4,4),new 
 // new RowColumn(5,0),new RowColumn(5,2),new RowColumn(5,3),new RowColumn(5,4),new RowColumn(5,5)
 new RowColumn(5,0),new RowColumn(5,7),new RowColumn(5,8),new RowColumn(5,9),new RowColumn(5,10),new RowColumn(5,11),new RowColumn(5,16),new RowColumn(5,20),new RowColumn(5,22), new RowColumn(5,23),new RowColumn(5,24),new RowColumn(5,25),new RowColumn(5,27),
 
-//row 6 6 12 15 21 - 26
+//row 6
 
    new RowColumn(6, 0), new RowColumn(6, 1), new RowColumn(6, 2), new RowColumn(6, 3), new RowColumn(6, 4), new RowColumn(6, 5), new RowColumn(6, 7),
-      new RowColumn(6, 8), new RowColumn(6, 9), new RowColumn(6, 10),new RowColumn(6, 11),new RowColumn(6, 13),new RowColumn(6, 14),new RowColumn(6, 16),new RowColumn(6, 17),new RowColumn(6, 18),new RowColumn(6, 19),new RowColumn(6, 20),new RowColumn(6, 27),new RowColumn(6, 27),
+      new RowColumn(6, 8), new RowColumn(6, 9), new RowColumn(6, 10),new RowColumn(6, 11),new RowColumn(6, 13),new RowColumn(6, 14),new RowColumn(6, 16),new RowColumn(6, 17),new RowColumn(6, 18),new RowColumn(6, 19),new RowColumn(6, 20),new RowColumn(6, 27),
 
 // dots new RowColumn(6, 6),new RowColumn(6, 12),new RowColumn(6, 15),new RowColumn(6, 21),new RowColumn(6, 22),new RowColumn(6, 23),new RowColumn(6, 24),new RowColumn(6, 25),new RowColumn(6, 26)
 
+//row 7
+new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14), new RowColumn(7,22), new RowColumn(7,23),new RowColumn(7,24),new RowColumn(7,25),new RowColumn(7,27)
+    //  0 5 13 14 22-25 27 wall 
+
     };
-//row3
-    var levelGaps = new List<RowColumn>{ new RowColumn(3,3),new RowColumn(3,4),new RowColumn(3,8),new RowColumn(3,9),new RowColumn(3,10),new RowColumn(3,17),new RowColumn(3,18), new RowColumn(3,19),new RowColumn(3,23),new RowColumn(3,24),
+      //row3
+      var levelGaps = new List<RowColumn>{ new RowColumn(3,3),new RowColumn(3,4),new RowColumn(3,8),new RowColumn(3,9),new RowColumn(3,10),new RowColumn(3,17),new RowColumn(3,18), new RowColumn(3,19),new RowColumn(3,23),new RowColumn(3,24),
     //row 4
     new RowColumn(4,8),new RowColumn(4,9),new RowColumn(4,10),new RowColumn(4,17),new RowColumn(4,18), new RowColumn(4,19),new RowColumn(4,23),new RowColumn(4,24),
     //row 5
     new RowColumn(5,17),new RowColumn(5,18),new RowColumn(5,19),
+    //row 7  1234  
+    new RowColumn(7,1),new RowColumn(7,2),new RowColumn(7,3),new RowColumn(7,4)
     
+
+
     };
 
       SetMany(levelWalls, CellType.Wall);

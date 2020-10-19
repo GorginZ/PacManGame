@@ -26,25 +26,9 @@ namespace PacManGame
       }
       _cells[1][1] = new Cell(CellType.Pacman);
 
-      //  var string =  "############################\n"
-      //              + "#P...........##............#\n"
-      //              + "#.####.#####.##.#####.####.#\n"
-      //              + "#.#  #.#   #.##.#   #.#  #.#\n"
-      //              + "#.####.#   #.##.#   #.#  #.#\n"
-      //              + "#......#####....#   #.####.#\n"
-      //              + "######.#####.##.#####......#\n"
-      //              + "#    #.......##.......####.#\n"
-      //              + "######.#####.##.#####.#  #.#\n"
-      //              + ".......#   #.##.#   #.#  #. \n"
-      //              + "######.#   #.##.#####.####.#\n"
-      //              + "#    #.#####.##.#   #.#  #.#\n"
 
-      //              + "######.#####.##.#####.####.#\n"
-
-      //              + "#............##............#\n"
-      //              + "############################\n";
-
-      var levelWalls = new List<RowColumn> { //row 0
+      var levelWalls = new List<RowColumn> { 
+        //row 0
       new RowColumn(0, 0), new RowColumn(0, 1), new RowColumn(0, 2), new RowColumn(0, 3), new RowColumn(0, 4), new RowColumn(0, 5), new RowColumn(0, 6), new RowColumn(0, 7),
       new RowColumn(0, 8), new RowColumn(0, 9), new RowColumn(0, 10),new RowColumn(0, 11),new RowColumn(0, 12),new RowColumn(0, 13),new RowColumn(0, 14),new RowColumn(0, 15),new RowColumn(0, 16),new RowColumn(0, 17),new RowColumn(0, 18),new RowColumn(0, 19),new RowColumn(0, 20),new RowColumn(0, 21),new RowColumn(0, 22),new RowColumn(0, 23),new RowColumn(0, 24),new RowColumn(0, 25),new RowColumn(0, 26),new RowColumn(0, 27),new RowColumn(0, 27),
       //row 1
@@ -91,6 +75,13 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
         //row 12
 
         new RowColumn(12,0), new RowColumn(12,1), new RowColumn(12,2),new RowColumn(12,3),new RowColumn(12,4),new RowColumn(12,5),new RowColumn(12,7),new RowColumn(12,8),new RowColumn(12,9),new RowColumn(12,10),new RowColumn(12,11),new RowColumn(12,13),new RowColumn(12,14),new RowColumn(12,16),new RowColumn(12,17),new RowColumn(12,18),new RowColumn(12,19),new RowColumn(12,20),new RowColumn(12,22), new RowColumn(12,23),new RowColumn(12,24),new RowColumn(12,25),new RowColumn(12,27),
+//row 13
+        new RowColumn(13, 0),new RowColumn(13,13),new RowColumn(13, 14),new RowColumn(13, 27),
+
+        //row 14
+
+         new RowColumn(14, 0), new RowColumn(14, 1), new RowColumn(14, 2), new RowColumn(14, 3), new RowColumn(14, 4), new RowColumn(14, 5), new RowColumn(14, 6), new RowColumn(14, 7),
+      new RowColumn(14, 8), new RowColumn(14, 9), new RowColumn(14, 10),new RowColumn(14, 11),new RowColumn(14, 12),new RowColumn(14, 13),new RowColumn(14, 14),new RowColumn(14, 15),new RowColumn(14, 16),new RowColumn(14, 17),new RowColumn(14, 18),new RowColumn(14, 19),new RowColumn(14, 20),new RowColumn(14, 21),new RowColumn(14, 22),new RowColumn(14, 23),new RowColumn(14, 24),new RowColumn(14, 25),new RowColumn(14, 26),new RowColumn(14, 27),
 
     };
       //row3
@@ -115,12 +106,6 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
       //row 11
 
            new RowColumn(11,1),new RowColumn(11,2),new RowColumn(11,3),   new RowColumn(11,4), new RowColumn(11,17),new RowColumn(11,18),new RowColumn(11,19),new RowColumn(11,23),   new RowColumn(11,24)
-
-    
-
-
-
-
     };
 
       SetMany(levelWalls, CellType.Wall);

@@ -46,9 +46,9 @@ namespace PacManGame
 
       var Walls = new List<RowColumn> { //row 0
       new RowColumn(0, 0), new RowColumn(0, 1), new RowColumn(0, 2), new RowColumn(0, 3), new RowColumn(0, 4), new RowColumn(0, 5), new RowColumn(0, 6), new RowColumn(0, 7),
-      new RowColumn(0, 8), new RowColumn(0, 9), new RowColumn(0, 10),new RowColumn(0, 11),new RowColumn(0, 12),new RowColumn(0, 13),new RowColumn(0, 14),new RowColumn(0, 15),new RowColumn(0, 16),new RowColumn(0, 17),new RowColumn(0, 18),new RowColumn(0, 19),new RowColumn(0, 20),new RowColumn(0, 21),new RowColumn(0, 22),new RowColumn(0, 23),new RowColumn(0, 24),new RowColumn(0, 25),new RowColumn(0, 26),new RowColumn(0, 27),new RowColumn(0, 28),
+      new RowColumn(0, 8), new RowColumn(0, 9), new RowColumn(0, 10),new RowColumn(0, 11),new RowColumn(0, 12),new RowColumn(0, 13),new RowColumn(0, 14),new RowColumn(0, 15),new RowColumn(0, 16),new RowColumn(0, 17),new RowColumn(0, 18),new RowColumn(0, 19),new RowColumn(0, 20),new RowColumn(0, 21),new RowColumn(0, 22),new RowColumn(0, 23),new RowColumn(0, 24),new RowColumn(0, 25),new RowColumn(0, 26),new RowColumn(0, 27),new RowColumn(0, 27),
       //row 1
-new RowColumn(1, 0),new RowColumn(1,13),new RowColumn(1,14),new RowColumn(1,28),
+new RowColumn(1, 0),new RowColumn(1,13),new RowColumn(1, 14),new RowColumn(1, 27),
 //row 2
 new RowColumn(2,0),new RowColumn(2,2),new RowColumn(2,3),new RowColumn(2,4),new RowColumn(2,5),new RowColumn(2,7),new RowColumn(2,8),new RowColumn(2,9),new RowColumn(2,10),new RowColumn(2,11),new RowColumn(2,13),new RowColumn(2,14),new RowColumn(2,16),new RowColumn(2,17),new RowColumn(2,18),new RowColumn(2,19),new RowColumn(2,20),new RowColumn(2,22), new RowColumn(2,23),new RowColumn(2,24),new RowColumn(2,25),new RowColumn(2,27)
 

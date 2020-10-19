@@ -33,10 +33,10 @@ namespace PacManGame
       //              + "#.####.#   #.##.#   #.#  #.#\n"
       //              + "#......#####....#   #.####.#\n"
       //              + "######.#####.##.#####......#\n"
-
       //              + "#    #.......##.......####.#\n"
 
       //              + "######.#####.##.#####.#  #.#\n"
+
       //              + ".......#   #.##.#   #.#  #. \n"
       //              + "######.#   #.##.#####.####.#\n"
       //              + "#    #.#####.##.#   #.#  #.#\n"
@@ -70,8 +70,11 @@ new RowColumn(5,0),new RowColumn(5,7),new RowColumn(5,8),new RowColumn(5,9),new 
 // dots new RowColumn(6, 6),new RowColumn(6, 12),new RowColumn(6, 15),new RowColumn(6, 21),new RowColumn(6, 22),new RowColumn(6, 23),new RowColumn(6, 24),new RowColumn(6, 25),new RowColumn(6, 26)
 
 //row 7
-new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14), new RowColumn(7,22), new RowColumn(7,23),new RowColumn(7,24),new RowColumn(7,25),new RowColumn(7,27)
+new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14), new RowColumn(7,22), new RowColumn(7,23),new RowColumn(7,24),new RowColumn(7,25),new RowColumn(7,27),
     //  0 5 13 14 22-25 27 wall 
+
+    //row 8
+    new RowColumn(8,0),new RowColumn(8,1),new RowColumn(8,2),new RowColumn(8,3),new RowColumn(8,4),new RowColumn(8,5),new RowColumn(8,7),new RowColumn(8,8),new RowColumn(8,9),new RowColumn(8,10),new RowColumn(8,11),new RowColumn(8,13),new RowColumn(8,14),new RowColumn(8,16),new RowColumn(8,17),new RowColumn(8,18),new RowColumn(8,19),new RowColumn(8,20),new RowColumn(8,22), new RowColumn(8,25),new RowColumn(8,27),
 
     };
       //row3
@@ -81,7 +84,10 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
     //row 5
     new RowColumn(5,17),new RowColumn(5,18),new RowColumn(5,19),
     //row 7  1234  
-    new RowColumn(7,1),new RowColumn(7,2),new RowColumn(7,3),new RowColumn(7,4)
+    new RowColumn(7,1),new RowColumn(7,2),new RowColumn(7,3),new RowColumn(7,4),
+
+    //row 8
+    new RowColumn(8,23),new RowColumn(8,24),
     
 
 

@@ -19,6 +19,14 @@ public class Cell
             {
                 return "P";
             }
+            if (CellContents.Equals(CellType.Wall))
+            {
+              return "#";
+            }
+             if (CellContents.Equals(CellType.Empty))
+            {
+              return " ";
+            }
             return CellContents.ToString();
         }
     }

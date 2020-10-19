@@ -29,7 +29,47 @@ namespace PacManGame.Tests
 
 
     }
+    [Fact]
+    public void MapHasWalls()
+    {
+      var game = new Game(15, 28);
 
- 
+      var expectedGrid = "############################\n"
+                       + "#P...........##............#\n"
+                       + "#.####.#####.##.#####.####.#\n"
+                       + "#.#  #.#   #.##.#   #.#  #.#\n"
+                       + "#.####.#   #.##.#   #.#  #.#\n"
+                       + "#......#####....#   #.####.#\n"
+                       + "######.#####.##.#####......#\n"
+                       + "#    #.......##.......####.#\n"
+                       + "######.#####.##.#####.#  #.#\n"
+                       + ".......#   #.##.#   #.#  #..\n"
+                       + "######.#   #.##.#####.####.#\n"
+                       + "#    #.#####.##.#   #.#  #.#\n"
+                       + "######.#####.##.#####.####.#\n"
+                       + "#............##............#\n"
+                       + "############################\n";
+                      
+
+
+
+      var actualGrid = game.PrintableGrid();
+
+      Assert.Equal(expectedGrid, actualGrid);
+    }
+
+    // [Fact]
+    // public void PacManCanRotate()
+    // {
+    //   var game = new Game(10,10);
+    //   game.SetPacManHeading(Direction.North);
+
+    //   Assert.
+
+
+
+    // }
+
+
   }
 }

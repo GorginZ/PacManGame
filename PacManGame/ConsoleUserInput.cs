@@ -26,10 +26,7 @@ namespace PacManGame
       {
         return Direction.West;
       }
-      else
-
-        throw new InvalidOperationException();
+      throw new InvalidOperationException();
     }
-
   }
 }

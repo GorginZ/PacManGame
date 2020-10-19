@@ -36,10 +36,10 @@ namespace PacManGame
       //              + "#    #.......##.......####.#\n"
       //              + "######.#####.##.#####.#  #.#\n"
       //              + ".......#   #.##.#   #.#  #. \n"
-
       //              + "######.#   #.##.#####.####.#\n"
 
       //              + "#    #.#####.##.#   #.#  #.#\n"
+
       //              + "######.#####.##.#####.####.#\n"
       //              + "#............##............#\n"
       //              + "############################\n";
@@ -84,6 +84,10 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
 
     new RowColumn(10,0),new RowColumn(10,1),new RowColumn(10,2),new RowColumn(10,3),new RowColumn(10,4),new RowColumn(10,5),new RowColumn(10,7),new RowColumn(10,11),new RowColumn(10,13),new RowColumn(10,14),new RowColumn(10,16),new RowColumn(10,17),new RowColumn(10,18),new RowColumn(10,19),new RowColumn(10,20),new RowColumn(10,22), new RowColumn(10,23),new RowColumn(10,24),new RowColumn(10,25),new RowColumn(10,27),
 
+    //row 11
+
+        new RowColumn(11,0),new RowColumn(11,5), new RowColumn(11,7),new RowColumn(11,8),new RowColumn(11,9),new RowColumn(11,10), new RowColumn(11,11),new RowColumn(11,13),new RowColumn(11,14),new RowColumn(11,16),new RowColumn(11,20),new RowColumn(11,22),new RowColumn(11,25),new RowColumn(11,27),
+
     };
       //row3
       var levelGaps = new List<RowColumn>{ new RowColumn(3,3),new RowColumn(3,4),new RowColumn(3,8),new RowColumn(3,9),new RowColumn(3,10),new RowColumn(3,17),new RowColumn(3,18), new RowColumn(3,19),new RowColumn(3,23),new RowColumn(3,24),
@@ -102,8 +106,15 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
       new RowColumn(9,8), new RowColumn(9,9),new RowColumn(9,10),new RowColumn(9,17),new RowColumn(9,18),new RowColumn(9,19),new RowColumn(9,23),new RowColumn(9,24),
 
       //row 10 
-      new RowColumn(10,8),new RowColumn(10,9),new RowColumn(10,10)
+      new RowColumn(10,8),new RowColumn(10,9),new RowColumn(10,10),
+
+      //row 11
+
+           new RowColumn(11,1),new RowColumn(11,2),new RowColumn(11,3),   new RowColumn(11,4), new RowColumn(11,17),new RowColumn(11,18),new RowColumn(11,19),new RowColumn(11,23),   new RowColumn(11,24)
+
     
+
+
 
 
     };

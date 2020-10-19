@@ -37,10 +37,10 @@ namespace PacManGame
       //              + "######.#####.##.#####.#  #.#\n"
       //              + ".......#   #.##.#   #.#  #. \n"
       //              + "######.#   #.##.#####.####.#\n"
-
       //              + "#    #.#####.##.#   #.#  #.#\n"
 
       //              + "######.#####.##.#####.####.#\n"
+
       //              + "#............##............#\n"
       //              + "############################\n";
 
@@ -87,6 +87,10 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
     //row 11
 
         new RowColumn(11,0),new RowColumn(11,5), new RowColumn(11,7),new RowColumn(11,8),new RowColumn(11,9),new RowColumn(11,10), new RowColumn(11,11),new RowColumn(11,13),new RowColumn(11,14),new RowColumn(11,16),new RowColumn(11,20),new RowColumn(11,22),new RowColumn(11,25),new RowColumn(11,27),
+
+        //row 12
+
+        new RowColumn(12,0), new RowColumn(12,1), new RowColumn(12,2),new RowColumn(12,3),new RowColumn(12,4),new RowColumn(12,5),new RowColumn(12,7),new RowColumn(12,8),new RowColumn(12,9),new RowColumn(12,10),new RowColumn(12,11),new RowColumn(12,13),new RowColumn(12,14),new RowColumn(12,16),new RowColumn(12,17),new RowColumn(12,18),new RowColumn(12,19),new RowColumn(12,20),new RowColumn(12,22), new RowColumn(12,23),new RowColumn(12,24),new RowColumn(12,25),new RowColumn(12,27),
 
     };
       //row3

@@ -34,10 +34,10 @@ namespace PacManGame
       //              + "#......#####....#   #.####.#\n"
       //              + "######.#####.##.#####......#\n"
       //              + "#    #.......##.......####.#\n"
-
       //              + "######.#####.##.#####.#  #.#\n"
 
       //              + ".......#   #.##.#   #.#  #. \n"
+
       //              + "######.#   #.##.#####.####.#\n"
       //              + "#    #.#####.##.#   #.#  #.#\n"
       //              + "######.#####.##.#####.####.#\n"
@@ -76,6 +76,10 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
     //row 8
     new RowColumn(8,0),new RowColumn(8,1),new RowColumn(8,2),new RowColumn(8,3),new RowColumn(8,4),new RowColumn(8,5),new RowColumn(8,7),new RowColumn(8,8),new RowColumn(8,9),new RowColumn(8,10),new RowColumn(8,11),new RowColumn(8,13),new RowColumn(8,14),new RowColumn(8,16),new RowColumn(8,17),new RowColumn(8,18),new RowColumn(8,19),new RowColumn(8,20),new RowColumn(8,22), new RowColumn(8,25),new RowColumn(8,27),
 
+    //row 9
+          // wall 7 11 13 14 16 20 22 25 
+    new RowColumn(9,7),new RowColumn(9,11),new RowColumn(9,13),new RowColumn(9,14),new RowColumn(9,16),new RowColumn(9,20),new RowColumn(9,22),new RowColumn(9,25),
+
     };
       //row3
       var levelGaps = new List<RowColumn>{ new RowColumn(3,3),new RowColumn(3,4),new RowColumn(3,8),new RowColumn(3,9),new RowColumn(3,10),new RowColumn(3,17),new RowColumn(3,18), new RowColumn(3,19),new RowColumn(3,23),new RowColumn(3,24),
@@ -88,6 +92,10 @@ new RowColumn(7, 0),new RowColumn(7, 5),new RowColumn(7, 13),new RowColumn(7, 14
 
     //row 8
     new RowColumn(8,23),new RowColumn(8,24),
+
+    //row 9
+          // gap 8 9 10 17 18 19 23 24
+      new RowColumn(9,8), new RowColumn(9,9),new RowColumn(9,10),new RowColumn(9,17),new RowColumn(9,18),new RowColumn(9,19),new RowColumn(9,23),new RowColumn(9,24),
     
 
 

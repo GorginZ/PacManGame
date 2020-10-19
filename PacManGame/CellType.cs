@@ -4,6 +4,7 @@ namespace PacManGame
 
   {
     Dot,
-    Pacman
+    Pacman,
+    Wall
   }
 }

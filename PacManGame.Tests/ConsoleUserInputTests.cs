@@ -11,7 +11,7 @@ namespace PacManGame.Tests
     [Fact]
     public void UserCanRotatePacmanWithWSADKeys()
     {
-      var game = new Game(10, 10);
+      var game = new Game();
       var userInput = new ConsoleUserInput();
       userInput.InputKey = ConsoleKey.A;
       

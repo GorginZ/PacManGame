@@ -6,16 +6,21 @@ namespace PacManGame
   {
     static void Main(string[] args)
     {
-      var game = new Game(10, 10);
+      var game = new Game();
       var userInput = new ConsoleUserInput();
 
       userInput.ReadInputDirection();
-      game.SetPacManHeading(userInput.ParseInputToDirection());
+      var userInputDirection = userInput.ParseInputToDirection();
+
+      game.SetPacManHeading(userInputDirection);
+
       Console.WriteLine(game.PacManCharacter.Heading);
 
+      Console.Write(game.PrintableGrid());
 
 
-    }
 
   }
+
+}
 }

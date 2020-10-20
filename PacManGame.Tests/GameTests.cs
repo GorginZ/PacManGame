@@ -9,7 +9,7 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManHasACurrentPosition()
     {
-      var game = new Game(10, 10);
+      var game = new Game();
 
       var pacmanPosition = game.FindPacman();
 
@@ -19,7 +19,7 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManCanMoveOnTheBoardOnTick()
     {
-      var game = new Game(10, 10);
+      var game = new Game();
       var pacManStartingPosition = game.FindPacman();
 
       game.Tick();
@@ -32,7 +32,7 @@ namespace PacManGame.Tests
     [Fact]
     public void MapHasWalls()
     {
-      var game = new Game(15, 28);
+      var game = new Game();
 
       var expectedGrid = "############################\n"
                        + "#P...........##............#\n"
@@ -58,17 +58,14 @@ namespace PacManGame.Tests
       Assert.Equal(expectedGrid, actualGrid);
     }
 
-    // [Fact]
-    // public void PacManCanRotate()
-    // {
-    //   var game = new Game(10,10);
-    //   game.SetPacManHeading(Direction.North);
+    [Fact]
+    public void PacManWontRotateIntoAWall()
+    {
+      var game = new Game();
+      game.SetPacManHeading(Direction.West);
 
-    //   Assert.
-
-
-
-    // }
+      Assert.Equal(Direction.North, game.PacManCharacter.Heading);
+    }
 
 
   }

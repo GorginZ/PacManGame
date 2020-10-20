@@ -59,6 +59,8 @@ namespace PacManGame
       }
       return printableGrid.ToString();
     }
+    
+    
 
 
     public bool IsPacMan(Cell valueAtIndex)
@@ -88,7 +90,7 @@ namespace PacManGame
 
     public void SetPacManHeading(Direction heading)
     {
-      if (IsValidMove(ParseDirectionToPotentialMove(heading)))
+      if (IsValidMove(PacManCharacter.CurrentPosition.GetNeighbour(heading, Level.RowCount, Level.ColumnCount)))
       {
         PacManCharacter.Heading = heading;
       }
@@ -97,54 +99,21 @@ namespace PacManGame
 
     public bool IsValidMove(RowColumn potentialMove)
     {
-      if (_cells[potentialMove.Row][potentialMove.Column].CellContents.Equals(CellType.Wall))
-      {
-        return false;
-      }
-      else
-      {
-        return true;
-      }
+      return _cells[potentialMove.Row][potentialMove.Column].CellContents != CellType.Wall;
     }
 
-    public RowColumn ParseDirectionToPotentialMove(Direction heading)
-    {
-      var potentialMove = new RowColumn(PacManCharacter.CurrentPosition.Row, PacManCharacter.CurrentPosition.Column);
-
-      if (heading == Direction.North)
-      {
-        potentialMove.Row--;
-      }
-
-      if (heading == Direction.East)
-      {
-        potentialMove.Column++;
-      }
-
-      if (heading == Direction.South)
-      {
-        potentialMove.Row++;
-      }
-
-      if (heading == Direction.West)
-      {
-        potentialMove.Column--;
-      }
-      return potentialMove;
-    }
-
-
+   
 
     public void Tick()
     {
 
 
-      var potentialMove = ParseDirectionToPotentialMove(PacManCharacter.Heading);
+      var potentialMove = PacManCharacter.CurrentPosition.GetNeighbour(PacManCharacter.Heading, Level.RowCount, Level.ColumnCount);
       if (IsValidMove(potentialMove))
       {
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
         
-        PacManCharacter.UpdateCurrentPosition();
+        PacManCharacter.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
         if (_cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents.Equals(CellType.Dot))
         {

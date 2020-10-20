@@ -24,13 +24,14 @@ namespace PacManGame.Tests
 
       game.Tick();
       var pacManCurrentPosition = game.FindPacman();
+      
 
       Assert.NotEqual(pacManStartingPosition, pacManCurrentPosition);
 
 
     }
     [Fact]
-    public void MapHasWalls()
+    public void MapInitializesInCorrectFormat()
     {
       var game = new Game();
 
@@ -49,9 +50,6 @@ namespace PacManGame.Tests
                        + "######.#####.##.#####.####.#\n"
                        + "#............##............#\n"
                        + "############################\n";
-                      
-
-
 
       var actualGrid = game.PrintableGrid();
 
@@ -59,12 +57,42 @@ namespace PacManGame.Tests
     }
 
     [Fact]
-    public void PacManWontRotateIntoAWall()
+    public void PacManWontRotateIntoAWallAndHeadingRemainsAsItWasPreviously()
     {
       var game = new Game();
-      game.SetPacManHeading(Direction.West);
+      game.SetPacManHeading(Direction.East);
+      game.Tick();
+      game.SetPacManHeading(Direction.North);
 
-      Assert.Equal(Direction.North, game.PacManCharacter.Heading);
+      Assert.Equal(Direction.East, game.PacManCharacter.Heading);
+    }
+[Fact]
+    public void PacManCantMoveOnOrThroughWall()
+    {
+      var game = new Game();
+
+      var expectedGrid = "############################\n"
+                       + "#P...........##............#\n"
+                       + "#.####.#####.##.#####.####.#\n"
+                       + "#.#  #.#   #.##.#   #.#  #.#\n"
+                       + "#.####.#   #.##.#   #.#  #.#\n"
+                       + "#......#####....#   #.####.#\n"
+                       + "######.#####.##.#####......#\n"
+                       + "#    #.......##.......####.#\n"
+                       + "######.#####.##.#####.#  #.#\n"
+                       + ".......#   #.##.#   #.#  #..\n"
+                       + "######.#   #.##.#####.####.#\n"
+                       + "#    #.#####.##.#   #.#  #.#\n"
+                       + "######.#####.##.#####.####.#\n"
+                       + "#............##............#\n"
+                       + "############################\n";
+      game.SetPacManHeading(Direction.North);
+      game.Tick();
+
+      var gameGrid = game.PrintableGrid();
+
+      Assert.Equal(expectedGrid, gameGrid);
+
     }
 
 

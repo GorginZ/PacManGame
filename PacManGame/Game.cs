@@ -29,7 +29,7 @@ namespace PacManGame
     {
 
 
-      for (int row = 0; row < Level.RowCount; row++)
+      for (int row = 0; row < Level.RowCount - 1; row++)
       {
         _cells.Add(new List<Cell>());
 

@@ -9,6 +9,7 @@ namespace PacManGame
     private List<List<Cell>> _cells = new List<List<Cell>>();
     public PacMan PacManCharacter = new PacMan(1, 1);
     public LevelCore Level = new LevelCore();
+    public int DotsEatenThisLevel = 0;
 
     public Game()
     {
@@ -136,12 +137,19 @@ namespace PacManGame
 
     public void Tick()
     {
-      _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
+
 
       var potentialMove = ParseDirectionToPotentialMove(PacManCharacter.Heading);
       if (IsValidMove(potentialMove))
       {
+        _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
+        
         PacManCharacter.UpdateCurrentPosition();
+
+        if (_cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents.Equals(CellType.Dot))
+        {
+          DotsEatenThisLevel++;
+        }
 
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
       }

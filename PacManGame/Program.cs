@@ -23,7 +23,8 @@ namespace PacManGame
         game.Tick();
         Console.Clear();
 
-        Console.WriteLine(game.PacManCharacter.Heading);
+        // Console.WriteLine(game.PacManCharacter.Heading);
+        Console.WriteLine($"Score: {game.DotsEatenThisLevel}");
 
       }
     }

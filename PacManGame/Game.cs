@@ -136,9 +136,14 @@ namespace PacManGame
 
     public void Tick()
     {
-      PacManCharacter.UpdateCurrentPosition();
+      var potentialMove = ParseDirectionToPotentialMove(PacManCharacter.Heading);
+      if (IsValidMove(potentialMove))
+      {
+        PacManCharacter.UpdateCurrentPosition();
 
-      _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
+        _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
+      }
+
 
 
     }

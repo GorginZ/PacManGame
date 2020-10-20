@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace PacManGame
 {
@@ -9,18 +10,25 @@ namespace PacManGame
       var game = new Game();
       var userInput = new ConsoleUserInput();
 
-      userInput.ReadInputDirection();
-      var userInputDirection = userInput.ParseInputToDirection();
 
-      game.SetPacManHeading(userInputDirection);
 
-      Console.WriteLine(game.PacManCharacter.Heading);
+      while (1 < 100)
+      {
+        Console.Write(game.PrintableGrid());
 
-      Console.Write(game.PrintableGrid());
+        userInput.ReadInputDirection();
+        var userInputDirection = userInput.ParseInputToDirection();
+        game.SetPacManHeading(userInputDirection);
 
+        game.Tick();
+        Console.Clear();
+
+        Console.WriteLine(game.PacManCharacter.Heading);
+
+      }
+    }
 
 
   }
+}
 
-}
-}

@@ -136,6 +136,8 @@ namespace PacManGame
 
     public void Tick()
     {
+      _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
+
       var potentialMove = ParseDirectionToPotentialMove(PacManCharacter.Heading);
       if (IsValidMove(potentialMove))
       {

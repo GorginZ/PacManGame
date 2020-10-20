@@ -9,7 +9,7 @@ namespace PacManGame
     private List<List<Cell>> _cells = new List<List<Cell>>();
     public PacMan PacManCharacter = new PacMan(1, 1);
 
-    public LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"level.txt"));
+    public LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"levelOne.txt"));
 
     public int DotsEatenThisLevel = 0;
 
@@ -17,7 +17,7 @@ namespace PacManGame
     {
 
 
-      for (int row = 0; row < Level.RowCount - 1; row++)
+      for (int row = 0; row < Level.RowCount; row++)
       {
         _cells.Add(new List<Cell>());
 

@@ -11,29 +11,9 @@ namespace PacManGame
       CurrentPosition = new RowColumn(row, column);
     }
 
-    public void UpdateCurrentPosition()
+    public void UpdateCurrentPosition(int rowCount, int columnCount)
     {
-      if (Heading == Direction.North)
-      {
-        CurrentPosition.Row--;
-      }
-
-      if (Heading == Direction.East)
-      {
-        CurrentPosition.Column++;
-      }
-
-      if (Heading == Direction.South)
-      {
-        CurrentPosition.Row++;
-      }
-
-      if (Heading == Direction.West)
-      {
-        CurrentPosition.Column--;
-      }
-
-
+      CurrentPosition = CurrentPosition.GetNeighbour(Heading, rowCount, columnCount);
     }
   }
 }

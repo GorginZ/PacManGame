@@ -8,10 +8,14 @@ namespace PacManGame
   {
     private List<List<Cell>> _cells = new List<List<Cell>>();
     public PacMan PacManCharacter = new PacMan(1, 1);
-    public LevelCore Level = new LevelCore();
+
+    public LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"./Levels/levelOne.txt"));
+
+    public int DotsEatenThisLevel = 0;
 
     public Game()
     {
+
 
       for (int row = 0; row < Level.RowCount; row++)
       {
@@ -23,10 +27,9 @@ namespace PacManGame
 
         }
       }
-      _cells[1][1] = new Cell(CellType.Pacman);
-
       SetMany(Level.LevelWalls, CellType.Wall);
       SetMany(Level.LevelGaps, CellType.Empty);
+      SetMany(Level.LevelPacMan, CellType.Pacman);
     }
     public List<List<Cell>> GetGrid() => _cells;
 
@@ -60,6 +63,8 @@ namespace PacManGame
     }
 
 
+
+
     public bool IsPacMan(Cell valueAtIndex)
     {
       if (valueAtIndex.CellContents.Equals(CellType.Pacman))
@@ -87,7 +92,7 @@ namespace PacManGame
 
     public void SetPacManHeading(Direction heading)
     {
-      if (IsValidMove(ParseDirectionToPotentialMove(heading)))
+      if (IsValidMove(PacManCharacter.CurrentPosition.GetNeighbour(heading, Level.RowCount, Level.ColumnCount)))
       {
         PacManCharacter.Heading = heading;
       }
@@ -96,50 +101,26 @@ namespace PacManGame
 
     public bool IsValidMove(RowColumn potentialMove)
     {
-      if (_cells[potentialMove.Row][potentialMove.Column].CellContents.Equals(CellType.Wall))
-      {
-        return false;
-      }
-      else
-      {
-        return true;
-      }
-    }
-
-    public RowColumn ParseDirectionToPotentialMove(Direction heading)
-    {
-      var potentialMove = new RowColumn(PacManCharacter.CurrentPosition.Row, PacManCharacter.CurrentPosition.Column);
-
-      if (heading == Direction.North)
-      {
-        potentialMove.Row--;
-      }
-
-      if (heading == Direction.East)
-      {
-        potentialMove.Column++;
-      }
-
-      if (heading == Direction.South)
-      {
-        potentialMove.Row++;
-      }
-
-      if (heading == Direction.West)
-      {
-        potentialMove.Column--;
-      }
-      return potentialMove;
+      return _cells[potentialMove.Row][potentialMove.Column].CellContents != CellType.Wall;
     }
 
 
 
     public void Tick()
     {
-      var potentialMove = ParseDirectionToPotentialMove(PacManCharacter.Heading);
+
+
+      var potentialMove = PacManCharacter.CurrentPosition.GetNeighbour(PacManCharacter.Heading, Level.RowCount, Level.ColumnCount);
       if (IsValidMove(potentialMove))
       {
-        PacManCharacter.UpdateCurrentPosition();
+        _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
+
+        PacManCharacter.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
+
+        if (_cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents.Equals(CellType.Dot))
+        {
+          DotsEatenThisLevel++;
+        }
 
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
       }

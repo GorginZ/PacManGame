@@ -20,13 +20,28 @@ namespace PacManGame.Tests
     public void PacManCanMoveOnTheBoardOnTick()
     {
       var game = new Game();
-      var pacManStartingPosition = game.FindPacman();
+      var expectedGrid = "############################\n"
+                       + "#P...........##............#\n"
+                       + "#.####.#####.##.#####.####.#\n"
+                       + "#.#  #.#   #.##.#   #.#  #.#\n"
+                       + "#.####.#   #.##.#   #.#  #.#\n"
+                       + "#......#####....#   #.####.#\n"
+                       + "######.#####.##.#####......#\n"
+                       + "#    #.......##.......####.#\n"
+                       + "######.#####.##.#####.#  #.#\n"
+                       + ".......#   #.##.#   #.#  #..\n"
+                       + "######.#   #.##.#####.####.#\n"
+                       + "#    #.#####.##.#   #.#  #.#\n"
+                       + "######.#####.##.#####.####.#\n"
+                       + "#............##............#\n"
+                       + "############################\n";
+      game.SetPacManHeading(Direction.East);
 
       game.Tick();
-      var pacManCurrentPosition = game.FindPacman();
-      
+      var actualGrid = game.PrintableGrid();
 
-      Assert.NotEqual(pacManStartingPosition, pacManCurrentPosition);
+
+      Assert.Equal(expectedGrid, actualGrid);
 
 
     }
@@ -66,7 +81,7 @@ namespace PacManGame.Tests
 
       Assert.Equal(Direction.East, game.PacManCharacter.Heading);
     }
-[Fact]
+    [Fact]
     public void PacManCantMoveOnOrThroughWall()
     {
       var game = new Game();
@@ -93,6 +108,14 @@ namespace PacManGame.Tests
 
       Assert.Equal(expectedGrid, gameGrid);
 
+    }
+    [Fact]
+    public void ScoreIncrementsWhenPacManEatDot()
+    {
+      var game = new Game();
+      game.SetPacManHeading(Direction.East);
+      game.Tick();
+      Assert.Equal(1, game.DotsEatenThisLevel);
     }
 
 

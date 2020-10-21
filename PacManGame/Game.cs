@@ -6,17 +6,24 @@ namespace PacManGame
 {
   public class Game
   {
-    private List<List<Cell>> _cells = new List<List<Cell>>();
-    public PacMan PacManCharacter = new PacMan(1, 1);
+    public static LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/levelOne.txt"));
 
-    public LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/levelOne.txt"));
+    private List<List<Cell>> _cells = new List<List<Cell>>();
+
+    public PacMan PacManCharacter = new PacMan(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
+
+    public Ghost YellowGhost = new Ghost(13, 26);
+    public Ghost BlueGhost = new Ghost(13, 25);
+    public Ghost RedGhost = new Ghost(13, 24);
+
+
 
     public int DotsEatenThisLevel = 0;
 
+    public int Lives = 3;
+
     public Game()
     {
-
-
       for (int row = 0; row < Level.RowCount; row++)
       {
         _cells.Add(new List<Cell>());
@@ -27,14 +34,14 @@ namespace PacManGame
 
         }
       }
+
       SetMany(Level.LevelWalls, CellType.Wall);
       SetMany(Level.LevelGaps, CellType.Empty);
       SetMany(Level.LevelPacMan, CellType.Pacman);
+      SetMany(Level.LevelGhosts, CellType.Ghost);
     }
-    public List<List<Cell>> GetGrid() => _cells;
 
-
-    public void SetMany(List<RowColumn> coordinatesToSet, CellType value)
+    private void SetMany(List<RowColumn> coordinatesToSet, CellType value)
     {
       foreach (RowColumn coordinate in coordinatesToSet)
       {
@@ -75,26 +82,28 @@ namespace PacManGame
       return false;
     }
 
-    public RowColumn FindPacman()
-    {
-      for (int row = 0; row < _cells.Count; row++)
-      {
-        for (int col = 0; col < _cells[0].Count; col++)
-        {
-          if (IsPacMan(_cells[row][col]))
-          {
-            return new RowColumn(row, col);
-          }
-        }
-      }
-      throw new System.Exception("There is no PacMan!!!!!");
-    }
-
     public void SetPacManHeading(Direction heading)
     {
       if (IsValidMove(PacManCharacter.CurrentPosition.GetNeighbour(heading, Level.RowCount, Level.ColumnCount)))
       {
         PacManCharacter.Heading = heading;
+      }
+
+    }
+
+
+
+    //  while (IsValidMove(ghost.CurrentPosition.GetNeighbour(direction, Level.RowCount, Level.ColumnCount)))
+    //       {
+    //         ghost.Heading = direction;
+    //       }
+
+    public void SetGhostHeading(Ghost ghost)
+    {
+      if (!IsValidMove(ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount)))
+      {
+        var rng = new Random();
+        ghost.Heading = (Direction)rng.Next((int)Direction.North, (int)Direction.West + 1);
       }
 
     }
@@ -105,13 +114,23 @@ namespace PacManGame
     }
 
 
-
     public void Tick()
     {
+      SetGhostHeading(YellowGhost);
+      
+      var YellowGhostPotentialMove = YellowGhost.CurrentPosition.GetNeighbour(YellowGhost.Heading, Level.RowCount, Level.ColumnCount);
 
+      if (IsValidMove(YellowGhostPotentialMove))
+      {
+        YellowGhost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
-      var potentialMove = PacManCharacter.CurrentPosition.GetNeighbour(PacManCharacter.Heading, Level.RowCount, Level.ColumnCount);
-      if (IsValidMove(potentialMove))
+        _cells[YellowGhost.CurrentPosition.Row][YellowGhost.CurrentPosition.Column].CellContents = CellType.Ghost;
+
+      }
+
+      var pacManPotentialMove = PacManCharacter.CurrentPosition.GetNeighbour(PacManCharacter.Heading, Level.RowCount, Level.ColumnCount);
+
+      if (IsValidMove(pacManPotentialMove))
       {
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
 

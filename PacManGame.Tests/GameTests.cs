@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using Xunit;
 
 namespace PacManGame.Tests
@@ -20,8 +21,8 @@ namespace PacManGame.Tests
     public void PacManCanMoveOnTheBoardOnTick()
     {
       var game = new Game();
-      var expectedGrid = "############################\n"
-                       + "#P...........##............#\n"
+       var expectedGrid = "###### ############## ######\n"
+                       + "# P..........##............#\n"
                        + "#.####.#####.##.#####.####.#\n"
                        + "#.#  #.#   #.##.#   #.#  #.#\n"
                        + "#.####.#   #.##.#   #.#  #.#\n"
@@ -29,12 +30,12 @@ namespace PacManGame.Tests
                        + "######.#####.##.#####......#\n"
                        + "#    #.......##.......####.#\n"
                        + "######.#####.##.#####.#  #.#\n"
-                       + ".......#   #.##.#   #.#  #..\n"
+                       + " ......#   #.##.#   #.#  #. \n"
                        + "######.#   #.##.#####.####.#\n"
                        + "#    #.#####.##.#   #.#  #.#\n"
                        + "######.#####.##.#####.####.#\n"
                        + "#............##............#\n"
-                       + "############################\n";
+                       + "###### ############## ######\n";
       game.SetPacManHeading(Direction.East);
 
       game.Tick();
@@ -50,7 +51,7 @@ namespace PacManGame.Tests
     {
       var game = new Game();
 
-      var expectedGrid = "############################\n"
+      var expectedGrid = "###### ############## ######\n"
                        + "#P...........##............#\n"
                        + "#.####.#####.##.#####.####.#\n"
                        + "#.#  #.#   #.##.#   #.#  #.#\n"
@@ -59,12 +60,12 @@ namespace PacManGame.Tests
                        + "######.#####.##.#####......#\n"
                        + "#    #.......##.......####.#\n"
                        + "######.#####.##.#####.#  #.#\n"
-                       + ".......#   #.##.#   #.#  #..\n"
+                       + " ......#   #.##.#   #.#  #. \n"
                        + "######.#   #.##.#####.####.#\n"
                        + "#    #.#####.##.#   #.#  #.#\n"
                        + "######.#####.##.#####.####.#\n"
                        + "#............##............#\n"
-                       + "############################\n";
+                       + "###### ############## ######\n";
 
       var actualGrid = game.PrintableGrid();
 
@@ -82,11 +83,11 @@ namespace PacManGame.Tests
       Assert.Equal(Direction.East, game.PacManCharacter.Heading);
     }
     [Fact]
-    public void PacManCantMoveOnOrThroughWall()
+    public void PacManStopsAtAWall()
     {
       var game = new Game();
 
-      var expectedGrid = "############################\n"
+       var expectedGrid = "###### ############## ######\n"
                        + "#P...........##............#\n"
                        + "#.####.#####.##.#####.####.#\n"
                        + "#.#  #.#   #.##.#   #.#  #.#\n"
@@ -95,12 +96,12 @@ namespace PacManGame.Tests
                        + "######.#####.##.#####......#\n"
                        + "#    #.......##.......####.#\n"
                        + "######.#####.##.#####.#  #.#\n"
-                       + ".......#   #.##.#   #.#  #..\n"
+                       + " ......#   #.##.#   #.#  #. \n"
                        + "######.#   #.##.#####.####.#\n"
                        + "#    #.#####.##.#   #.#  #.#\n"
                        + "######.#####.##.#####.####.#\n"
                        + "#............##............#\n"
-                       + "############################\n";
+                       + "###### ############## ######\n";
       game.SetPacManHeading(Direction.North);
       game.Tick();
 
@@ -117,6 +118,8 @@ namespace PacManGame.Tests
       game.Tick();
       Assert.Equal(1, game.DotsEatenThisLevel);
     }
+
+
 
 
   }

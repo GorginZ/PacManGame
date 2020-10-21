@@ -10,26 +10,38 @@ namespace PacManGame
       var game = new Game();
       var userInput = new ConsoleUserInput();
 
-
-
-      while (1 < 100)
+      new Thread(() =>
       {
-        Console.Write(game.PrintableGrid());
+        while (1 < 100)
+        {
+          userInput.ReadInputDirection();
+          var userInputDirection = userInput.ParseInputToDirection();
+          game.SetPacManHeading(userInputDirection);
 
-        userInput.ReadInputDirection();
-        var userInputDirection = userInput.ParseInputToDirection();
-        game.SetPacManHeading(userInputDirection);
+        }
 
-        game.Tick();
-        Console.Clear();
+      }).Start();
 
-        // Console.WriteLine(game.PacManCharacter.Heading);
-        Console.WriteLine($"Score: {game.DotsEatenThisLevel}");
+      new Thread(() =>
+      {
+        while (1 < 100)
+        {
+          Console.Write(game.PrintableGrid());
+          Thread.Sleep(300);
+          game.Tick();
+          Console.Clear();
 
-      }
+          Console.WriteLine($"Score: {game.DotsEatenThisLevel}");
+
+        }
+
+      }).Start();
+
+
+
+
+
     }
-
-
   }
 }
 

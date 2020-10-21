@@ -171,9 +171,22 @@ namespace PacManGame.Tests
       Assert.False(rowEquals && colEquals);
     }
 
-    public void GhostDoesntLeaveTrailOfGhosts(){
-      
-    }
+    [Fact]
+    public void GhostDoesntLeaveTrailOfGhosts()
+    {
+      {
+        var game = new Game();
 
+        var ghostStartRow = game.YellowGhost.CurrentPosition.Row;
+        var ghostStartCol = game.YellowGhost.CurrentPosition.Column;
+
+        game.Tick();
+
+        bool rowEquals = game.YellowGhost.CurrentPosition.Row == ghostStartRow;
+        bool colEquals = game.YellowGhost.CurrentPosition.Column == ghostStartCol;
+
+        Assert.False(rowEquals && colEquals);
+      }
+    }
   }
 }

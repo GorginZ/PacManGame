@@ -12,9 +12,9 @@ namespace PacManGame
 
     public PacMan PacManCharacter = new PacMan(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
 
-    public Ghost YellowGhost = new Ghost(13, 26);
-    public Ghost BlueGhost = new Ghost(13, 25);
-    public Ghost RedGhost = new Ghost(13, 24);
+    public Ghost YellowGhost = new Ghost(Level.LevelGhosts[0].Row, Level.LevelGhosts[0].Column);
+    public Ghost BlueGhost = new Ghost(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column);
+    public Ghost RedGhost = new Ghost(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
 
 
 
@@ -61,11 +61,17 @@ namespace PacManGame
       {
         for (int j = 0; j < _cells[0].Count; j++)
         {
+          // if (i == YellowGhost.CurrentPosition.Row && j == YellowGhost.CurrentPosition.Column)
+          // {
+          //  // do something to make it yellow
+           
 
+          // }
           printableGrid.Append(_cells[i][j].ToString());
         }
         printableGrid.Append("\n");
       }
+
       return printableGrid.ToString();
     }
 
@@ -91,13 +97,6 @@ namespace PacManGame
 
     }
 
-
-
-    //  while (IsValidMove(ghost.CurrentPosition.GetNeighbour(direction, Level.RowCount, Level.ColumnCount)))
-    //       {
-    //         ghost.Heading = direction;
-    //       }
-
     public void SetGhostHeading(Ghost ghost)
     {
       if (!IsValidMove(ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount)))
@@ -113,21 +112,24 @@ namespace PacManGame
       return _cells[potentialMove.Row][potentialMove.Column].CellContents != CellType.Wall;
     }
 
-
-    public void Tick()
+    public void MoveGhost(Ghost ghost)
     {
-      SetGhostHeading(YellowGhost);
-      
-      var YellowGhostPotentialMove = YellowGhost.CurrentPosition.GetNeighbour(YellowGhost.Heading, Level.RowCount, Level.ColumnCount);
+      var potentialPosition = ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount);
 
-      if (IsValidMove(YellowGhostPotentialMove))
+      if (IsValidMove(potentialPosition))
       {
-        YellowGhost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
+        var previousCellStateToPreserve = _cells[potentialPosition.Row][potentialPosition.Column].CellContents;
 
-        _cells[YellowGhost.CurrentPosition.Row][YellowGhost.CurrentPosition.Column].CellContents = CellType.Ghost;
+        _cells[ghost.CurrentPosition.Row][ghost.CurrentPosition.Column].CellContents = previousCellStateToPreserve;
 
+        ghost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
+
+        _cells[ghost.CurrentPosition.Row][ghost.CurrentPosition.Column].CellContents = CellType.Ghost;
       }
+    }
 
+    public void MovePacMan()
+    {
       var pacManPotentialMove = PacManCharacter.CurrentPosition.GetNeighbour(PacManCharacter.Heading, Level.RowCount, Level.ColumnCount);
 
       if (IsValidMove(pacManPotentialMove))
@@ -143,9 +145,18 @@ namespace PacManGame
 
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
       }
+    }
 
 
-
+    public void Tick()
+    {
+      SetGhostHeading(YellowGhost);
+      SetGhostHeading(BlueGhost);
+      SetGhostHeading(RedGhost);
+      MoveGhost(YellowGhost);
+      MoveGhost(BlueGhost);
+      MoveGhost(RedGhost);
+      MovePacMan();
     }
   }
 }

@@ -113,21 +113,24 @@ namespace PacManGame
       return _cells[potentialMove.Row][potentialMove.Column].CellContents != CellType.Wall;
     }
 
-
-    public void Tick()
+    public void MoveYellowGhost()
     {
-      SetGhostHeading(YellowGhost);
-      
       var YellowGhostPotentialMove = YellowGhost.CurrentPosition.GetNeighbour(YellowGhost.Heading, Level.RowCount, Level.ColumnCount);
 
       if (IsValidMove(YellowGhostPotentialMove))
       {
+        var previousCellStateToPreserve = _cells[YellowGhostPotentialMove.Row][YellowGhostPotentialMove.Column].CellContents;
+
+        _cells[YellowGhost.CurrentPosition.Row][YellowGhost.CurrentPosition.Column].CellContents = previousCellStateToPreserve;
+
         YellowGhost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
         _cells[YellowGhost.CurrentPosition.Row][YellowGhost.CurrentPosition.Column].CellContents = CellType.Ghost;
-
       }
+    }
 
+    public void MovePacMan()
+    {
       var pacManPotentialMove = PacManCharacter.CurrentPosition.GetNeighbour(PacManCharacter.Heading, Level.RowCount, Level.ColumnCount);
 
       if (IsValidMove(pacManPotentialMove))
@@ -143,9 +146,14 @@ namespace PacManGame
 
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
       }
+    }
 
 
-
+    public void Tick()
+    {
+      SetGhostHeading(YellowGhost);
+      MoveYellowGhost();
+      MovePacMan();
     }
   }
 }

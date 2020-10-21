@@ -9,15 +9,14 @@ namespace PacManGame.Tests
     // [InlineData(ConsoleKey.W, ConsoleKey.S, ConsoleKey.A, ConsoleKey.D)]
     // [InlineData(Direction.North, Direction.South, Direction.West, Direction.East)]
     [Fact]
-    public void UserCanRotatePacmanWithWSADKeys()
+    public void UsersInputViaWSADKeysCanBeUsedToSetDirection()
     {
-      var game = new Game();
       var userInput = new ConsoleUserInput();
       userInput.InputKey = ConsoleKey.A;
       
-      game.PacManCharacter.Heading = userInput.ParseInputToDirection();
+      var parsedDirection = userInput.ParseInputToDirection();
 
-      Assert.True(game.PacManCharacter.Heading == Direction.West);
+      Assert.True(parsedDirection == Direction.West);
     }
 
   }

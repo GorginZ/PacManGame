@@ -10,6 +10,7 @@ namespace PacManGame
     public List<RowColumn> LevelGaps;
     public List<RowColumn> LevelDots;
     public List<RowColumn> LevelPacMan;
+    public List<RowColumn> LevelGhosts;
 
     public static LevelCore Parse(string level)
     {
@@ -17,6 +18,8 @@ namespace PacManGame
       var gaps = new List<RowColumn>();
       var dots = new List<RowColumn>();
       var pacMan = new List<RowColumn>();
+      var ghosts = new List<RowColumn>();
+
       var rows = level.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.None);
       for (var row = 0; row < rows.Length; row++)
       {
@@ -35,6 +38,10 @@ namespace PacManGame
           {
             pacMan.Add(new RowColumn(row, col));
           }
+          if (c == 'M')
+          {
+            ghosts.Add(new RowColumn(row, col));
+          }
           else if (c == ' ')
           {
             gaps.Add(new RowColumn(row, col));
@@ -49,7 +56,8 @@ namespace PacManGame
         LevelWalls = walls,
         LevelGaps = gaps,
         LevelDots = dots,
-        LevelPacMan = pacMan
+        LevelPacMan = pacMan,
+        LevelGhosts = ghosts
       };
     }
 

@@ -5,6 +5,7 @@ namespace PacManGame
   {
     Dot,
     Pacman,
+    Ghost,
     Wall,
     Empty
   }

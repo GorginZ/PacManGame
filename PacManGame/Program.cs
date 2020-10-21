@@ -32,6 +32,7 @@ namespace PacManGame
           Console.Clear();
 
           Console.WriteLine($"Score: {game.DotsEatenThisLevel}");
+          Console.WriteLine($"Lives: {game.Lives}");
 
         }
 

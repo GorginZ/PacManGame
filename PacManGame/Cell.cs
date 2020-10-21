@@ -19,6 +19,10 @@ public class Cell
             {
                 return "P";
             }
+            if (CellContents.Equals(CellType.Ghost))
+            {
+              return "M";
+            }
             if (CellContents.Equals(CellType.Wall))
             {
               return "#";

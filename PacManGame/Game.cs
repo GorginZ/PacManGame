@@ -8,7 +8,7 @@ namespace PacManGame
   {
     public static LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/levelOne.txt"));
 
-    private List<List<Cell>> _cells = new List<List<Cell>>();
+    private Grid _grid;
 
     public PacMan PacManCharacter = new PacMan(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
 
@@ -16,65 +16,52 @@ namespace PacManGame
     public Ghost BlueGhost = new Ghost(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column);
     public Ghost RedGhost = new Ghost(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
 
-    private HashSet<RowColumn> emptySpace = new HashSet<RowColumn>();
+    private HashSet<RowColumn> _emptySpace = new HashSet<RowColumn>();
 
     public int DotsEatenThisLevel = 0;
 
     public int Lives = 3;
 
+    public bool HasDied = false;
+
     public Game()
     {
-      for (int row = 0; row < Level.RowCount; row++)
-      {
-        _cells.Add(new List<Cell>());
-
-        for (int column = 0; column < Level.ColumnCount; column++)
-        {
-          _cells[row].Add(new Cell(CellType.Dot));
-        }
-      }
-
-      SetMany(Level.LevelWalls, CellType.Wall);
-      SetMany(Level.LevelGaps, CellType.Empty);
-      SetMany(Level.LevelPacMan, CellType.Pacman);
-      SetMany(Level.LevelGhosts, CellType.Ghost);
+      _grid = new Grid(Level.RowCount, Level.ColumnCount);
+      InitializeMap();
     }
 
-    private void SetMany(List<RowColumn> coordinatesToSet, CellType value)
+    private void InitializeMap()
     {
-      foreach (RowColumn coordinate in coordinatesToSet)
-      {
-        if (coordinate.Row < _cells.Count && coordinate.Column < _cells[0].Count)
-        {
-          _cells[coordinate.Row][coordinate.Column].CellContents = value;
-        }
-      }
-    }
+      PacManCharacter.CurrentPosition = new RowColumn(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
+      YellowGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[0].Row, Level.LevelGhosts[0].Column);
+      BlueGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column);
+      RedGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
 
+      _emptySpace = new HashSet<RowColumn>();
+
+      _grid.SetMany(Level.LevelWalls, CellType.Wall);
+      _grid.SetMany(Level.LevelGaps, CellType.Empty);
+      _grid.SetMany(Level.LevelPacMan, CellType.Pacman);
+      _grid.SetMany(Level.LevelGhosts, CellType.Ghost);
+    }
 
     public String PrintableGrid()
     {
       var printableGrid = new StringBuilder();
 
-      for (int i = 0; i < _cells.Count; i++)
+      for (int i = 0; i < _grid.RowCount; i++)
       {
-        for (int j = 0; j < _cells[0].Count; j++)
+        for (int j = 0; j < _grid.ColumnCount; j++)
         {
-          // if (i == YellowGhost.CurrentPosition.Row && j == YellowGhost.CurrentPosition.Column)
-          // {
-          //  // do something to make it yellow
+          var coordinate = new RowColumn(i, j);
 
-
-          // }
-          printableGrid.Append(_cells[i][j].ToString());
+          printableGrid.Append(_grid[coordinate].ToString());
         }
         printableGrid.Append("\n");
       }
 
       return printableGrid.ToString();
     }
-
-
 
 
     public bool IsPacMan(Cell valueAtIndex)
@@ -108,7 +95,12 @@ namespace PacManGame
 
     public bool IsValidMove(RowColumn potentialMove)
     {
-      return _cells[potentialMove.Row][potentialMove.Column].CellContents != CellType.Wall;
+      return _grid[potentialMove].CellContents != CellType.Wall;
+    }
+
+    public bool GhostCollideWithPacman(RowColumn ghostMove, RowColumn pacmanMove)
+    {
+      return ghostMove.Equals(pacmanMove);
     }
 
     public void MoveGhost(Ghost ghost)
@@ -119,13 +111,19 @@ namespace PacManGame
 
       if (IsValidMove(potentialPosition))
       {
+
         ghost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
-        var cellTypeToLeaveBehind = emptySpace.Contains(ghostsOldPosition) ? (CellType.Empty) : (CellType.Dot);
+        if (GhostCollideWithPacman(ghost.CurrentPosition, PacManCharacter.CurrentPosition))
+        {
+          HasDied = true;
+        }
 
-        _cells[ghostsOldPosition.Row][ghostsOldPosition.Column].CellContents = cellTypeToLeaveBehind;
+        var cellTypeToLeaveBehind = _emptySpace.Contains(ghostsOldPosition) ? (CellType.Empty) : (CellType.Dot);
 
-        _cells[ghost.CurrentPosition.Row][ghost.CurrentPosition.Column].CellContents = CellType.Ghost;
+        _grid[ghostsOldPosition].CellContents = cellTypeToLeaveBehind;
+
+        _grid[ghost.CurrentPosition].CellContents = CellType.Ghost;
       }
     }
 
@@ -136,18 +134,18 @@ namespace PacManGame
       if (IsValidMove(pacManPotentialMove))
       {
         //re-thinking this line -cop out
-        _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
+        _grid[PacManCharacter.CurrentPosition].CellContents = CellType.Empty;
 
         PacManCharacter.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
-        if (!emptySpace.Contains(PacManCharacter.CurrentPosition))
+        if (!_emptySpace.Contains(PacManCharacter.CurrentPosition))
         {
           DotsEatenThisLevel++;
 
-          emptySpace.Add(PacManCharacter.CurrentPosition);
+          _emptySpace.Add(PacManCharacter.CurrentPosition);
         }
 
-        _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;
+        _grid[PacManCharacter.CurrentPosition].CellContents = CellType.Pacman;
       }
     }
 
@@ -161,6 +159,16 @@ namespace PacManGame
       MoveGhost(BlueGhost);
       MoveGhost(RedGhost);
       MovePacMan();
+
+      if (HasDied)
+      {
+        _grid = new Grid(Level.RowCount, Level.ColumnCount);
+        InitializeMap();
+        Lives--;
+        HasDied = false;
+        DotsEatenThisLevel = 0;
+      }
+
     }
   }
 }

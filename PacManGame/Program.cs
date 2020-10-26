@@ -35,11 +35,14 @@ namespace PacManGame
           lock (programLock)
           {
             game.Tick();
+
           }
           Console.Clear();
 
           Console.WriteLine($"Score: {game.DotsEatenThisLevel}");
           Console.WriteLine($"Lives: {game.Lives}");
+
+
 
         }
 

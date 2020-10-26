@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace PacManGame
 {
-  public struct RowColumn
+  public struct RowColumn : IEquatable<RowColumn>
   {
     public int Row;
     public int Column;
@@ -12,6 +13,7 @@ namespace PacManGame
       Row = row;
       Column = column;
     }
+
     public RowColumn GetNeighbour(Direction heading, int rowCount, int colCount)
     {
       switch (heading)
@@ -36,5 +38,11 @@ namespace PacManGame
           throw new System.ArgumentOutOfRangeException(nameof(heading));
       }
     }
+
+    public bool Equals(RowColumn other) =>
+      Row == other.Row && Column == other.Column;
+
+    public override int GetHashCode() =>
+      HashCode.Combine(Row, Column);
   }
 }

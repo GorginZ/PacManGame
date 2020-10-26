@@ -12,6 +12,7 @@ namespace PacManGame
     public List<RowColumn> LevelPacMan;
     public List<RowColumn> LevelGhosts;
 
+
     public static LevelCore Parse(string level)
     {
       var walls = new List<RowColumn>();

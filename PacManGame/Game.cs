@@ -16,7 +16,7 @@ namespace PacManGame
     public Ghost BlueGhost = new Ghost(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column);
     public Ghost RedGhost = new Ghost(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
 
-
+    private HashSet<RowColumn> emptySpace = new HashSet<RowColumn>();
 
     public int DotsEatenThisLevel = 0;
 
@@ -31,7 +31,6 @@ namespace PacManGame
         for (int column = 0; column < Level.ColumnCount; column++)
         {
           _cells[row].Add(new Cell(CellType.Dot));
-
         }
       }
 
@@ -64,7 +63,7 @@ namespace PacManGame
           // if (i == YellowGhost.CurrentPosition.Row && j == YellowGhost.CurrentPosition.Column)
           // {
           //  // do something to make it yellow
-           
+
 
           // }
           printableGrid.Append(_cells[i][j].ToString());
@@ -114,15 +113,17 @@ namespace PacManGame
 
     public void MoveGhost(Ghost ghost)
     {
+      var ghostsOldPosition = ghost.CurrentPosition;
+
       var potentialPosition = ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount);
 
       if (IsValidMove(potentialPosition))
       {
-        var previousCellStateToPreserve = _cells[potentialPosition.Row][potentialPosition.Column].CellContents;
-
-        _cells[ghost.CurrentPosition.Row][ghost.CurrentPosition.Column].CellContents = previousCellStateToPreserve;
-
         ghost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
+
+        var cellTypeToLeaveBehind = emptySpace.Contains(ghostsOldPosition) ? (CellType.Empty) : (CellType.Dot);
+
+        _cells[ghostsOldPosition.Row][ghostsOldPosition.Column].CellContents = cellTypeToLeaveBehind;
 
         _cells[ghost.CurrentPosition.Row][ghost.CurrentPosition.Column].CellContents = CellType.Ghost;
       }
@@ -134,13 +135,16 @@ namespace PacManGame
 
       if (IsValidMove(pacManPotentialMove))
       {
+        //re-thinking this line -cop out
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Empty;
 
         PacManCharacter.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
-        if (_cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents.Equals(CellType.Dot))
+        if (!emptySpace.Contains(PacManCharacter.CurrentPosition))
         {
           DotsEatenThisLevel++;
+
+          emptySpace.Add(PacManCharacter.CurrentPosition);
         }
 
         _cells[PacManCharacter.CurrentPosition.Row][PacManCharacter.CurrentPosition.Column].CellContents = CellType.Pacman;

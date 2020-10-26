@@ -10,14 +10,18 @@ namespace PacManGame
       var game = new Game();
       var userInput = new ConsoleUserInput();
 
+      var programLock = new object();
+
       new Thread(() =>
       {
         while (1 < 100)
         {
           userInput.ReadInputDirection();
           var userInputDirection = userInput.ParseInputToDirection();
-          game.SetPacManHeading(userInputDirection);
-
+          lock (programLock)
+          {
+            game.SetPacManHeading(userInputDirection);
+          }
         }
 
       }).Start();
@@ -28,7 +32,10 @@ namespace PacManGame
         {
           Console.Write(game.PrintableGrid());
           Thread.Sleep(300);
-          game.Tick();
+          lock (programLock)
+          {
+            game.Tick();
+          }
           Console.Clear();
 
           Console.WriteLine($"Score: {game.DotsEatenThisLevel}");

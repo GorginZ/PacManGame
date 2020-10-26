@@ -6,7 +6,9 @@ namespace PacManGame
 {
   public class Game
   {
-    public static LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/levelOne.txt"));
+    public int CurrentLevel = 1;
+
+    public static LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt"));
 
     private Grid _grid;
 
@@ -21,8 +23,8 @@ namespace PacManGame
     public int DotsEatenThisLevel = 0;
 
     public int Lives = 3;
-
     public bool HasDied = false;
+
 
     public Game()
     {
@@ -61,6 +63,13 @@ namespace PacManGame
       }
 
       return printableGrid.ToString();
+    }
+
+    private string GetLevelPathName()
+    {
+      string path = $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level{CurrentLevel}.txt";
+      ;
+      return path;
     }
 
 
@@ -150,6 +159,7 @@ namespace PacManGame
     }
 
 
+
     public void Tick()
     {
       SetGhostHeading(YellowGhost);
@@ -165,6 +175,16 @@ namespace PacManGame
         _grid = new Grid(Level.RowCount, Level.ColumnCount);
         InitializeMap();
         Lives--;
+        HasDied = false;
+        DotsEatenThisLevel = 0;
+      }
+      if (DotsEatenThisLevel == 131)
+      {
+        CurrentLevel++;
+        _grid = new Grid(Level.RowCount, Level.ColumnCount);
+        string levelPath = GetLevelPathName();
+        Level = LevelCore.Parse(System.IO.File.ReadAllText(levelPath));
+        InitializeMap();
         HasDied = false;
         DotsEatenThisLevel = 0;
       }

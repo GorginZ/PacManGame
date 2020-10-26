@@ -4,7 +4,7 @@ namespace PacManGame
 {
   public class LevelCore
   {
-    public int RowCount = 15;
+    public int RowCount = 17;
     public int ColumnCount = 28;
     public List<RowColumn> LevelWalls;
     public List<RowColumn> LevelGaps;

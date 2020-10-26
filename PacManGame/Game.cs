@@ -65,7 +65,7 @@ namespace PacManGame
       return printableGrid.ToString();
     }
 
-    private string LevelPathName()
+    private string GetLevelPathName()
     {
       string path = $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level{CurrentLevel}.txt";
       ;
@@ -182,7 +182,7 @@ namespace PacManGame
       {
         CurrentLevel++;
         _grid = new Grid(Level.RowCount, Level.ColumnCount);
-        string levelPath = LevelPathName();
+        string levelPath = GetLevelPathName();
         Level = LevelCore.Parse(System.IO.File.ReadAllText(levelPath));
         InitializeMap();
         HasDied = false;

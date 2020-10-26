@@ -113,16 +113,17 @@ namespace PacManGame
 
     public void MoveGhost(Ghost ghost)
     {
+      var ghostsOldPosition = ghost.CurrentPosition;
+
       var potentialPosition = ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount);
 
       if (IsValidMove(potentialPosition))
       {
-
-        var cellType = emptySpace.Contains(potentialPosition) ? (CellType.Empty) : (CellType.Dot);
-
-        _cells[ghost.CurrentPosition.Row][ghost.CurrentPosition.Column].CellContents = cellType;
-
         ghost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
+
+        var cellTypeToLeaveBehind = emptySpace.Contains(ghostsOldPosition) ? (CellType.Empty) : (CellType.Dot);
+
+        _cells[ghostsOldPosition.Row][ghostsOldPosition.Column].CellContents = cellTypeToLeaveBehind;
 
         _cells[ghost.CurrentPosition.Row][ghost.CurrentPosition.Column].CellContents = CellType.Ghost;
       }

@@ -14,7 +14,7 @@ namespace PacManGame
 
       new Thread(() =>
       {
-        while (1 < 100)
+        while (true)
         {
           userInput.ReadInputDirection();
           var userInputDirection = userInput.ParseInputToDirection();
@@ -28,7 +28,7 @@ namespace PacManGame
 
       new Thread(() =>
       {
-        while (1 < 100)
+        while (true)
         {
           Console.Write(game.PrintableGrid());
           Thread.Sleep(300);
@@ -43,6 +43,12 @@ namespace PacManGame
           Console.WriteLine($"Score: {game.Score}");
           Console.WriteLine($"Lives: {game.Lives}");
 
+          ConsoleAnimate animate = new ConsoleAnimate();
+          animate.Delay = 300;
+          while (true)
+          {
+            animate.Turn(displayMsg: "Working ", sequenceCode: 5);
+          }
 
 
         }

@@ -19,8 +19,11 @@ namespace PacManGame
     public Ghost RedGhost = new Ghost(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
 
     private HashSet<RowColumn> _emptySpace = new HashSet<RowColumn>();
+    private HashSet<RowColumn> _remainingDots = new HashSet<RowColumn>();
+
 
     public int DotsEatenThisLevel = 0;
+    public int Score = 0;
 
     public int Lives = 3;
     public bool HasDied = false;
@@ -29,17 +32,25 @@ namespace PacManGame
     public Game()
     {
       _grid = new Grid(Level.RowCount, Level.ColumnCount);
-      InitializeMap();
+      InitializeMapWithLevelData();
     }
 
-    private void InitializeMap()
+    private void InitializeMapWithLevelData()
     {
       PacManCharacter.CurrentPosition = new RowColumn(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
       YellowGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[0].Row, Level.LevelGhosts[0].Column);
       BlueGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column);
       RedGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
 
+
       _emptySpace = new HashSet<RowColumn>();
+      _emptySpace.UnionWith(Level.LevelGhosts);
+      _emptySpace.UnionWith(Level.LevelGaps);
+      _emptySpace.UnionWith(Level.LevelPacMan);
+
+      _remainingDots = new HashSet<RowColumn>();
+      _remainingDots.UnionWith(Level.LevelDots);
+
 
       _grid.SetMany(Level.LevelWalls, CellType.Wall);
       _grid.SetMany(Level.LevelGaps, CellType.Empty);
@@ -142,20 +153,38 @@ namespace PacManGame
 
       if (IsValidMove(pacManPotentialMove))
       {
-        //re-thinking this line -cop out
+        //will pacman always leave a empty? I think so.
         _grid[PacManCharacter.CurrentPosition].CellContents = CellType.Empty;
 
         PacManCharacter.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
         if (!_emptySpace.Contains(PacManCharacter.CurrentPosition))
         {
-          DotsEatenThisLevel++;
-
-          _emptySpace.Add(PacManCharacter.CurrentPosition);
+          ApplyEatDotRules();
         }
 
         _grid[PacManCharacter.CurrentPosition].CellContents = CellType.Pacman;
       }
+    }
+
+    public void ApplyEatDotRules()
+    {
+      DotsEatenThisLevel++;
+      Score++;
+      _emptySpace.Add(PacManCharacter.CurrentPosition);
+      _remainingDots.Remove(PacManCharacter.CurrentPosition);
+    }
+
+    public void LevelUp()
+    {
+      CurrentLevel++;
+      _grid = new Grid(Level.RowCount, Level.ColumnCount);
+      string levelPath = GetLevelPathName();
+      Level = LevelCore.Parse(System.IO.File.ReadAllText(levelPath));
+      InitializeMapWithLevelData();
+      HasDied = false;
+      Score += DotsEatenThisLevel;
+      DotsEatenThisLevel = 0;
     }
 
 
@@ -173,20 +202,14 @@ namespace PacManGame
       if (HasDied)
       {
         _grid = new Grid(Level.RowCount, Level.ColumnCount);
-        InitializeMap();
+        InitializeMapWithLevelData();
         Lives--;
         HasDied = false;
         DotsEatenThisLevel = 0;
       }
-      if (DotsEatenThisLevel == 131)
+      if (_remainingDots.Count == 0)
       {
-        CurrentLevel++;
-        _grid = new Grid(Level.RowCount, Level.ColumnCount);
-        string levelPath = GetLevelPathName();
-        Level = LevelCore.Parse(System.IO.File.ReadAllText(levelPath));
-        InitializeMap();
-        HasDied = false;
-        DotsEatenThisLevel = 0;
+        LevelUp();
       }
 
     }

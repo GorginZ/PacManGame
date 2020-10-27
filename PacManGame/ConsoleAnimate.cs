@@ -16,8 +16,14 @@ namespace PacManGame
     {
       counter = 0;
       sequence = new string[,] {
-                
+                //east
                 { "<", "-", "<", "-" },
+                //west
+                { ">", "-", ">", "-" },
+                //north
+                { "V", "|", "V", "|" },
+                //south
+                { "^", "|", "^", "|" },
                // ADD YOUR OWN CREATIVE SEQUENCE HERE IF YOU LIKE
             };
 
@@ -41,8 +47,8 @@ namespace PacManGame
       string fullMessage = displayMsg + sequence[sequenceCode, counterValue];
       int msglength = fullMessage.Length;
 
-      Console.Write(fullMessage);
-
+      // Console.Write(fullMessage);
+//I want this to be pacman, maybe this wont work with curser position.
       Console.SetCursorPosition(Console.CursorLeft - msglength, Console.CursorTop);
     }
   }

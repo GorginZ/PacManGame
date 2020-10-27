@@ -43,12 +43,7 @@ namespace PacManGame
           Console.WriteLine($"Score: {game.Score}");
           Console.WriteLine($"Lives: {game.Lives}");
 
-          ConsoleAnimate animate = new ConsoleAnimate();
-          animate.Delay = 300;
-          while (true)
-          {
-            animate.Turn(displayMsg: "Working ", sequenceCode: 5);
-          }
+         
 
 
         }

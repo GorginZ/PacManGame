@@ -68,7 +68,7 @@ namespace PacManGame
         {
           var coordinate = new RowColumn(i, j);
 
-          printableGrid.Append(_grid[coordinate].ToString());
+          printableGrid.Append(_grid[coordinate].PrintableCell(GetPacManSymbol()));
         }
         printableGrid.Append("\n");
       }
@@ -173,6 +173,7 @@ namespace PacManGame
       Score++;
       _emptySpace.Add(PacManCharacter.CurrentPosition);
       _remainingDots.Remove(PacManCharacter.CurrentPosition);
+
     }
 
     public void LevelUp()
@@ -187,6 +188,43 @@ namespace PacManGame
       DotsEatenThisLevel = 0;
     }
 
+    public void AnimatePacManMouth()
+    {
+      if (PacManCharacter.MouthOpen)
+      {
+        PacManCharacter.MouthOpen = false;
+      }
+      else if (!PacManCharacter.MouthOpen)
+      {
+        PacManCharacter.MouthOpen = true;
+      }
+    }
+
+    public string GetPacManSymbol()
+    {
+      switch (PacManCharacter.Heading)
+      {
+        case Direction.North:
+          var northSymbol = PacManCharacter.MouthOpen ? ("V") : ("|");
+          return northSymbol;
+
+        case Direction.East:
+          var eastSymbol = PacManCharacter.MouthOpen ? ("<") : ("-");
+          return eastSymbol;
+
+        case Direction.South:
+          var southSymbol = PacManCharacter.MouthOpen ? ("^") : ("|");
+          return southSymbol;
+
+        case Direction.West:
+          var westSymbol = PacManCharacter.MouthOpen ? (">") : ("-");
+          return westSymbol;
+
+        default:
+          throw new System.ArgumentOutOfRangeException(nameof(PacManCharacter.Heading));
+      }
+    }
+
 
 
     public void Tick()
@@ -198,6 +236,7 @@ namespace PacManGame
       MoveGhost(BlueGhost);
       MoveGhost(RedGhost);
       MovePacMan();
+      AnimatePacManMouth();
 
       if (HasDied)
       {

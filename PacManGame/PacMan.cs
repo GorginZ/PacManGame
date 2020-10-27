@@ -6,6 +6,8 @@ namespace PacManGame
 
     public Direction Heading;
 
+    public bool MouthOpen = false;
+
     public PacMan(int row, int column)
     {
       CurrentPosition = new RowColumn(row, column);

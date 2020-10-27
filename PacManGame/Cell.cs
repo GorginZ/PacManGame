@@ -9,7 +9,9 @@ namespace PacManGame
     {
       CellContents = cellType;
     }
-    public override String ToString()
+
+
+    public String PrintableCell(string pacManSymbol)
     {
       if (CellContents.Equals(CellType.Dot))
       {
@@ -18,7 +20,7 @@ namespace PacManGame
       if (CellContents.Equals(CellType.Pacman))
       {
         
-        // return "P";
+        return pacManSymbol;
       }
       if (CellContents.Equals(CellType.Ghost))
       {
@@ -34,5 +36,7 @@ namespace PacManGame
       }
       return CellContents.ToString();
     }
+
+   
   }
 }

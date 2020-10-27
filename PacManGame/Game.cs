@@ -178,7 +178,7 @@ namespace PacManGame
         HasDied = false;
         DotsEatenThisLevel = 0;
       }
-      if (DotsEatenThisLevel == 131)
+      if (DotsEatenThisLevel == 173)
       {
         CurrentLevel++;
         _grid = new Grid(Level.RowCount, Level.ColumnCount);

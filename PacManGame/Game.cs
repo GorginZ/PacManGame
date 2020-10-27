@@ -153,7 +153,7 @@ namespace PacManGame
 
       if (IsValidMove(pacManPotentialMove))
       {
-        //re-thinking this line -cop out
+        //will pacman always leave a empty? I think so.
         _grid[PacManCharacter.CurrentPosition].CellContents = CellType.Empty;
 
         PacManCharacter.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);

@@ -7,7 +7,7 @@ namespace PacManGame
   {
     static void Main(string[] args)
     {
-      var game = new Game();
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
       var userInput = new ConsoleUserInput();
 
       var programLock = new object();
@@ -30,7 +30,7 @@ namespace PacManGame
       {
         while (true)
         {
-          Console.Write(game.PrintableGrid());
+          Console.Write(game.GetStateOfMapAsString());
           Thread.Sleep(300);
           lock (programLock)
           {

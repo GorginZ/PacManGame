@@ -41,7 +41,7 @@ namespace PacManGame
           Console.WriteLine($"Current Level: {game.CurrentLevel}");
           Console.WriteLine($"Dots Eaten This Level: {game.DotsEatenThisLevel}");
           Console.WriteLine($"Score: {game.Score}");
-          Console.WriteLine($"Lives: {game.Lives}");
+          Console.WriteLine($"Lives: {game.PacManCharacter.Lives}");
 
          
 

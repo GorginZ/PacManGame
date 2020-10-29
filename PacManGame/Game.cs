@@ -109,8 +109,6 @@ namespace PacManGame
       return _grid[potentialMove].CellContents != CellType.Wall;
     }
 
-
-
     public void MoveGhost(Ghost ghost)
     {
       var ghostsOldPosition = ghost.CurrentPosition;

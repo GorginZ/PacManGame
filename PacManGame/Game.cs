@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace PacManGame
 {
@@ -39,9 +40,9 @@ namespace PacManGame
     private void InitializeMapWithLevelData() // kinda console only
     {
       PacManCharacter.CurrentPosition = new RowColumn(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
-      //loop?
-      Ghosts = new List<Ghost> { new Ghost(Level.LevelGhosts[0].Row, Level.LevelGhosts[0].Column), new Ghost(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column), new Ghost(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column) };
 
+      Ghosts = new List<Ghost>();
+      Level.LevelGhosts.ForEach(x => Ghosts.Add(new Ghost(x.Row, x.Column)));
 
       _emptySpace = new HashSet<RowColumn>();
       _emptySpace.UnionWith(Level.LevelGhosts);
@@ -211,7 +212,7 @@ namespace PacManGame
 
     public bool GhostCollideWithPacman()
     {
-      return Ghosts[0].CurrentPosition.Equals(PacManCharacter.CurrentPosition) || Ghosts[1].CurrentPosition.Equals(PacManCharacter.CurrentPosition) || Ghosts[2].CurrentPosition.Equals(PacManCharacter.CurrentPosition);
+      return Ghosts.Any(x => x.CurrentPosition.Equals(PacManCharacter.CurrentPosition));
     }
 
     public void UpdateGhosts()

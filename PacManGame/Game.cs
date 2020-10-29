@@ -57,8 +57,8 @@ namespace PacManGame
       _grid.SetMany(Level.LevelDots, CellType.Dot);
 
     }
-
-    public String GetStateOfMapAsString() //console only
+//console only
+    public String GetStateOfMapAsString() 
     {
       var printableGrid = new StringBuilder();
 
@@ -157,8 +157,8 @@ namespace PacManGame
       _remainingDots.Remove(PacManCharacter.CurrentPosition);
 
     }
-
-    public void LevelUp() //console only
+//console only
+    public void LevelUp() 
     {
       CurrentLevel++;
       _grid = new Grid(Level.RowCount, Level.ColumnCount);
@@ -169,8 +169,8 @@ namespace PacManGame
       Score += DotsEatenThisLevel;
       DotsEatenThisLevel = 0;
     }
-
-    public void OscillatePacManMouthState() // console only
+// console only
+    public void OscillatePacManMouthState() 
     {
       if (PacManCharacter.MouthOpen)
       {
@@ -182,7 +182,8 @@ namespace PacManGame
       }
     }
 
-    public string GetPacManSymbol() //console only
+//console only
+    public string GetPacManSymbol() 
     {
       switch (PacManCharacter.Heading)
       {

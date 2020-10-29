@@ -21,6 +21,7 @@ namespace PacManGame.Tests
       Assert.NotEqual(pacManBeforeTick, pacManAfterTick);
 
     }
+    
     [Fact]
     public void MapInitializesInCorrectFormat()
     {
@@ -35,7 +36,7 @@ namespace PacManGame.Tests
         + "#.####.#####.##.#####.####.#\n"
         + "............................\n"
         + "#.####.######  ######.####.#\n"
-        + "#.#  #.### M M M ####.#  #.#\n"
+        + "#.#  #.###       ####.#  #.#\n"
         + "#.####.##############.####.#\n"
         + ".............V..............\n"
         + "#.####.#####.##.#####.####.#\n"
@@ -85,75 +86,48 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManWrapsAroundRows()
     {
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
-      game.SetPacManHeading(Direction.West);
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame.Tests/TestMaps/SimpleWrappingMap.txt")));
+      game.SetPacManHeading(Direction.East);
+
+      var expectedGrid =
+      "-..... \n"
+    + ".......\n"
+    + ".......\n";
 
       game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      var pacManBeforeWrap = game.PacManCharacter.CurrentPosition;
-      game.Tick();
-      var pacManAfterWrap = game.PacManCharacter.CurrentPosition;
+      var gameGrid = game.GetStateOfMapAsString();
 
-      Assert.Equal(new RowColumn(10, 0), pacManBeforeWrap);
-      Assert.Equal(new RowColumn(10, 27), pacManAfterWrap);
+      Assert.Equal(expectedGrid, gameGrid);
     }
 
     [Fact]
-
-    public void GhostChangesHeadingWhenHitsWall()
+    public void PacManWrapsAroundColumns()
     {
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame.Tests/TestMaps/SimpleWrappingMap.txt")));
+      game.SetPacManHeading(Direction.North);
 
-      //change this test. this is unclear.
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
+      var expectedGrid =
+      "...... \n"
+    + ".......\n"
+    + "......|\n";
 
       game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
-      game.Tick();
+      var gameGrid = game.GetStateOfMapAsString();
 
-      bool rowEquals = game.YellowGhost.CurrentPosition.Row == 1;
-      bool colEquals = game.YellowGhost.CurrentPosition.Column == 26;
-
-      Assert.False(rowEquals && colEquals);
+      Assert.Equal(expectedGrid, gameGrid);
     }
 
-    // [Fact]
-    // public void GhostDoesntLeaveTrailOfGhosts()
-    // {
-    //   {
-    //        var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
 
-    //     var ghostStartRow = game.YellowGhost.CurrentPosition.Row;
-    //     var ghostStartCol = game.YellowGhost.CurrentPosition.Column;
+    [Fact]
+    public void GhostCanNavigate()
+    {
+ 
+    }
 
-    //     game.Tick();
+    [Fact]
+    public void GhostLeavesAppropriateCellStateBehind()
+    {
 
-    //     bool rowEquals = game.YellowGhost.CurrentPosition.Row == ghostStartRow;
-    //     bool colEquals = game.YellowGhost.CurrentPosition.Column == ghostStartCol;
-
-    //     Assert.False(rowEquals && colEquals);
-    //   }
-    // }
+    }
   }
 }

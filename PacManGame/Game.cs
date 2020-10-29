@@ -33,8 +33,7 @@ namespace PacManGame
 
     private string GetLevelPathName()
     {
-      string path = $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level{CurrentLevel}.txt";
-      return path;
+      return $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level{CurrentLevel}.txt";
     }
 
     private void InitializeMapWithLevelData() // kinda console only
@@ -51,7 +50,6 @@ namespace PacManGame
       _remainingDots.UnionWith(Level.LevelDots);
 
       _grid.SetMany(Level.LevelWalls, CellType.Wall);
-      _grid.SetMany(Level.LevelGaps, CellType.Empty);
       _grid.SetMany(Level.LevelPacMan, CellType.Pacman);
       _grid.SetMany(Level.LevelGhosts, CellType.Ghost);
       _grid.SetMany(Level.LevelDots, CellType.Dot);
@@ -74,15 +72,6 @@ namespace PacManGame
       }
 
       return printableGrid.ToString();
-    }
-    public bool IsPacMan(Cell valueAtIndex)
-    {
-      if (valueAtIndex.CellContents.Equals(CellType.Pacman))
-      {
-        return true;
-
-      }
-      return false;
     }
 
     public void SetPacManHeading(Direction heading)
@@ -157,7 +146,7 @@ namespace PacManGame
       _remainingDots.Remove(PacManCharacter.CurrentPosition);
 
     }
-//console only
+
     public void LevelUp() 
     {
       CurrentLevel++;
@@ -169,7 +158,7 @@ namespace PacManGame
       Score += DotsEatenThisLevel;
       DotsEatenThisLevel = 0;
     }
-// console only
+
     public void OscillatePacManMouthState() 
     {
       if (PacManCharacter.MouthOpen)

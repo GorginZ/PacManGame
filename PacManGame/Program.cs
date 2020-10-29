@@ -14,7 +14,7 @@ namespace PacManGame
 
       new Thread(() =>
       {
-        while (true)
+        while (true) 
         {
           userInput.ReadInputDirection();
           var userInputDirection = userInput.ParseInputToDirection();
@@ -49,10 +49,6 @@ namespace PacManGame
         }
 
       }).Start();
-
-
-
-
 
     }
   }

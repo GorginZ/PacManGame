@@ -45,18 +45,17 @@ namespace PacManGame
       Level.LevelGhosts.ForEach(x => Ghosts.Add(new Ghost(x.Row, x.Column)));
 
       _emptySpace = new HashSet<RowColumn>();
-      _emptySpace.UnionWith(Level.LevelGhosts);
       _emptySpace.UnionWith(Level.LevelGaps);
-      _emptySpace.UnionWith(Level.LevelPacMan);
 
       _remainingDots = new HashSet<RowColumn>();
       _remainingDots.UnionWith(Level.LevelDots);
-
 
       _grid.SetMany(Level.LevelWalls, CellType.Wall);
       _grid.SetMany(Level.LevelGaps, CellType.Empty);
       _grid.SetMany(Level.LevelPacMan, CellType.Pacman);
       _grid.SetMany(Level.LevelGhosts, CellType.Ghost);
+      _grid.SetMany(Level.LevelDots, CellType.Dot);
+
     }
 
     public String GetStateOfMapAsString() //console only

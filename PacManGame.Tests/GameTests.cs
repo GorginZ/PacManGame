@@ -21,11 +21,13 @@ namespace PacManGame.Tests
       Assert.NotEqual(pacManBeforeTick, pacManAfterTick);
 
     }
-    
+
     [Fact]
     public void MapInitializesInCorrectFormat()
     {
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
+      var consoleRenderer = new ConsoleRenderer();
+
 
       var expectedGrid =
         "######.##############.######\n"
@@ -46,7 +48,7 @@ namespace PacManGame.Tests
         + "#............##............#\n"
         + "######.##############.######\n";
 
-      var actualGrid = game.GetStateOfMapAsString();
+      var actualGrid = consoleRenderer.GetStateOfMapAsString(game.Grid, game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen);
 
       Assert.Equal(expectedGrid, actualGrid);
     }
@@ -71,7 +73,6 @@ namespace PacManGame.Tests
       game.Tick();
       var pacManPositionAfterTick = game.PacManCharacter.CurrentPosition;
 
-      var gameGrid = game.GetStateOfMapAsString();
 
       Assert.Equal(pacManPositionBeforeTick, pacManPositionAfterTick);
     }
@@ -86,6 +87,8 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManWrapsAroundRows()
     {
+      var consoleRenderer = new ConsoleRenderer();
+
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame.Tests/TestMaps/SimpleWrappingMap.txt")));
       game.SetPacManHeading(Direction.East);
 
@@ -95,14 +98,16 @@ namespace PacManGame.Tests
     + ".......\n";
 
       game.Tick();
-      var gameGrid = game.GetStateOfMapAsString();
+      var actualGrid = consoleRenderer.GetStateOfMapAsString(game.Grid, game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen);
 
-      Assert.Equal(expectedGrid, gameGrid);
+      Assert.Equal(expectedGrid, actualGrid);
     }
 
     [Fact]
     public void PacManWrapsAroundColumns()
     {
+      var consoleRenderer = new ConsoleRenderer();
+
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame.Tests/TestMaps/SimpleWrappingMap.txt")));
       game.SetPacManHeading(Direction.North);
 
@@ -112,16 +117,16 @@ namespace PacManGame.Tests
     + "......|\n";
 
       game.Tick();
-      var gameGrid = game.GetStateOfMapAsString();
+      var actualGrid = consoleRenderer.GetStateOfMapAsString(game.Grid, game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen);
 
-      Assert.Equal(expectedGrid, gameGrid);
+      Assert.Equal(expectedGrid, actualGrid);
     }
 
 
     [Fact]
     public void GhostCanNavigate()
     {
- 
+
     }
 
     [Fact]

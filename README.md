@@ -72,7 +72,9 @@ public String GetStateOfMapAsString()
 
 
 
-#### Animating 
+I have pulled these off into a ConsoleRenderer class and will write more about this. 
+
+Animating 
 
 The options to 'animate' this game so it feels playable are limited by the form. My game renders a string grid, and so everything must move in the single tick() frame (as specified in the kata) and so that's where the 'animating' of pacmans mouth occurs.
 

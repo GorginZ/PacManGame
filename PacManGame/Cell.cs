@@ -11,7 +11,7 @@ namespace PacManGame
     }
 
 
-    public String PrintableCell(string pacManSymbol)
+    public String CellAsString(string pacManSymbol)
     {
       if (CellContents.Equals(CellType.Dot))
       {

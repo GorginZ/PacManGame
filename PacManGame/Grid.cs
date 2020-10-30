@@ -19,7 +19,7 @@ namespace PacManGame
 
         for (int column = 0; column < columnDimension; column++)
         {
-          _cellGrid[row].Add(new Cell(CellType.Dot));
+          _cellGrid[row].Add(new Cell(CellType.Empty));
         }
       }
     }

@@ -12,7 +12,6 @@ namespace PacManGame
     public List<RowColumn> LevelPacMan;
     public List<RowColumn> LevelGhosts;
 
-
     public static LevelCore Parse(string level)
     {
       var walls = new List<RowColumn>();
@@ -35,13 +34,16 @@ namespace PacManGame
           {
             dots.Add(new RowColumn(row, col));
           }
-           if (c == 'P')
+          if (c == 'P')
           {
             pacMan.Add(new RowColumn(row, col));
+            gaps.Add(new RowColumn(row, col));
           }
           if (c == 'M')
           {
             ghosts.Add(new RowColumn(row, col));
+            gaps.Add(new RowColumn(row, col));
+
           }
           else if (c == ' ')
           {

@@ -1,97 +1,58 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace PacManGame
 {
   public class Game
   {
     public int CurrentLevel = 1;
+    public static LevelCore Level;
 
-    public static LevelCore Level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt"));
+    public Grid Grid;
+    public PacMan PacManCharacter;
 
-    private Grid _grid;
-
-    public PacMan PacManCharacter = new PacMan(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
-
-    public Ghost YellowGhost = new Ghost(Level.LevelGhosts[0].Row, Level.LevelGhosts[0].Column);
-    public Ghost BlueGhost = new Ghost(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column);
-    public Ghost RedGhost = new Ghost(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
+    public List<Ghost> Ghosts;
 
     private HashSet<RowColumn> _emptySpace = new HashSet<RowColumn>();
     private HashSet<RowColumn> _remainingDots = new HashSet<RowColumn>();
 
-
     public int DotsEatenThisLevel = 0;
     public int Score = 0;
 
-    public int Lives = 3;
-    public bool HasDied = false;
-
-
-    public Game()
+    public Game(LevelCore level)
     {
-      _grid = new Grid(Level.RowCount, Level.ColumnCount);
+      Level = level;
+      PacManCharacter = new PacMan(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
+      Grid = new Grid(Level.RowCount, Level.ColumnCount);
+
       InitializeMapWithLevelData();
-    }
-
-    private void InitializeMapWithLevelData()
-    {
-      PacManCharacter.CurrentPosition = new RowColumn(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
-      YellowGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[0].Row, Level.LevelGhosts[0].Column);
-      BlueGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[1].Row, Level.LevelGhosts[1].Column);
-      RedGhost.CurrentPosition = new RowColumn(Level.LevelGhosts[2].Row, Level.LevelGhosts[2].Column);
-
-
-      _emptySpace = new HashSet<RowColumn>();
-      _emptySpace.UnionWith(Level.LevelGhosts);
-      _emptySpace.UnionWith(Level.LevelGaps);
-      _emptySpace.UnionWith(Level.LevelPacMan);
-
-      _remainingDots = new HashSet<RowColumn>();
-      _remainingDots.UnionWith(Level.LevelDots);
-
-
-      _grid.SetMany(Level.LevelWalls, CellType.Wall);
-      _grid.SetMany(Level.LevelGaps, CellType.Empty);
-      _grid.SetMany(Level.LevelPacMan, CellType.Pacman);
-      _grid.SetMany(Level.LevelGhosts, CellType.Ghost);
-    }
-
-    public String PrintableGrid()
-    {
-      var printableGrid = new StringBuilder();
-
-      for (int i = 0; i < _grid.RowCount; i++)
-      {
-        for (int j = 0; j < _grid.ColumnCount; j++)
-        {
-          var coordinate = new RowColumn(i, j);
-
-          printableGrid.Append(_grid[coordinate].PrintableCell(GetPacManSymbol()));
-        }
-        printableGrid.Append("\n");
-      }
-
-      return printableGrid.ToString();
     }
 
     private string GetLevelPathName()
     {
-      string path = $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level{CurrentLevel}.txt";
-      ;
-      return path;
+      return $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level{CurrentLevel}.txt";
     }
 
-
-    public bool IsPacMan(Cell valueAtIndex)
+    private void InitializeMapWithLevelData() // kinda console only
     {
-      if (valueAtIndex.CellContents.Equals(CellType.Pacman))
-      {
-        return true;
+      PacManCharacter.CurrentPosition = new RowColumn(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
 
-      }
-      return false;
+      Ghosts = new List<Ghost>();
+      Level.LevelGhosts.ForEach(x => Ghosts.Add(new Ghost(x.Row, x.Column)));
+
+      _emptySpace = new HashSet<RowColumn>();
+      _emptySpace.UnionWith(Level.LevelGaps);
+
+      _remainingDots = new HashSet<RowColumn>();
+      _remainingDots.UnionWith(Level.LevelDots);
+
+      Grid.SetMany(Level.LevelWalls, CellType.Wall);
+      Grid.SetMany(Level.LevelPacMan, CellType.Pacman);
+      Grid.SetMany(Level.LevelGhosts, CellType.Ghost);
+      Grid.SetMany(Level.LevelDots, CellType.Dot);
+
     }
 
     public void SetPacManHeading(Direction heading)
@@ -115,12 +76,7 @@ namespace PacManGame
 
     public bool IsValidMove(RowColumn potentialMove)
     {
-      return _grid[potentialMove].CellContents != CellType.Wall;
-    }
-
-    public bool GhostCollideWithPacman(RowColumn ghostMove, RowColumn pacmanMove)
-    {
-      return ghostMove.Equals(pacmanMove);
+      return Grid[potentialMove].CellContents != CellType.Wall;
     }
 
     public void MoveGhost(Ghost ghost)
@@ -131,19 +87,13 @@ namespace PacManGame
 
       if (IsValidMove(potentialPosition))
       {
-
         ghost.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
-
-        if (GhostCollideWithPacman(ghost.CurrentPosition, PacManCharacter.CurrentPosition))
-        {
-          HasDied = true;
-        }
 
         var cellTypeToLeaveBehind = _emptySpace.Contains(ghostsOldPosition) ? (CellType.Empty) : (CellType.Dot);
 
-        _grid[ghostsOldPosition].CellContents = cellTypeToLeaveBehind;
+        Grid[ghostsOldPosition].CellContents = cellTypeToLeaveBehind;
 
-        _grid[ghost.CurrentPosition].CellContents = CellType.Ghost;
+        Grid[ghost.CurrentPosition].CellContents = CellType.Ghost;
       }
     }
 
@@ -153,8 +103,10 @@ namespace PacManGame
 
       if (IsValidMove(pacManPotentialMove))
       {
-        //will pacman always leave a empty? I think so.
-        _grid[PacManCharacter.CurrentPosition].CellContents = CellType.Empty;
+        OscillatePacManMouthState();
+
+
+        Grid[PacManCharacter.CurrentPosition].CellContents = CellType.Empty;
 
         PacManCharacter.UpdateCurrentPosition(Level.RowCount, Level.ColumnCount);
 
@@ -163,7 +115,7 @@ namespace PacManGame
           ApplyEatDotRules();
         }
 
-        _grid[PacManCharacter.CurrentPosition].CellContents = CellType.Pacman;
+        Grid[PacManCharacter.CurrentPosition].CellContents = CellType.Pacman;
       }
     }
 
@@ -179,16 +131,16 @@ namespace PacManGame
     public void LevelUp()
     {
       CurrentLevel++;
-      _grid = new Grid(Level.RowCount, Level.ColumnCount);
+      Grid = new Grid(Level.RowCount, Level.ColumnCount);
       string levelPath = GetLevelPathName();
       Level = LevelCore.Parse(System.IO.File.ReadAllText(levelPath));
       InitializeMapWithLevelData();
-      HasDied = false;
+      PacManCharacter.HasDied = false;
       Score += DotsEatenThisLevel;
       DotsEatenThisLevel = 0;
     }
 
-    public void AnimatePacManMouth()
+    public void OscillatePacManMouthState()
     {
       if (PacManCharacter.MouthOpen)
       {
@@ -200,51 +152,37 @@ namespace PacManGame
       }
     }
 
-    public string GetPacManSymbol()
+    public bool GhostCollideWithPacman()
     {
-      switch (PacManCharacter.Heading)
+      return Ghosts.Any(x => x.CurrentPosition.Equals(PacManCharacter.CurrentPosition));
+    }
+
+    public void UpdateGhosts()
+    {
+      foreach (Ghost ghost in Ghosts)
       {
-        case Direction.North:
-          var northSymbol = PacManCharacter.MouthOpen ? ("V") : ("|");
-          return northSymbol;
-
-        case Direction.East:
-          var eastSymbol = PacManCharacter.MouthOpen ? ("<") : ("-");
-          return eastSymbol;
-
-        case Direction.South:
-          var southSymbol = PacManCharacter.MouthOpen ? ("^") : ("|");
-          return southSymbol;
-
-        case Direction.West:
-          var westSymbol = PacManCharacter.MouthOpen ? (">") : ("-");
-          return westSymbol;
-
-        default:
-          throw new System.ArgumentOutOfRangeException(nameof(PacManCharacter.Heading));
+        SetGhostHeading(ghost);
+        MoveGhost(ghost);
       }
     }
 
-
+    public void PacManDieAndReStartLevelSequence()
+    {
+      Grid = new Grid(Level.RowCount, Level.ColumnCount);
+      InitializeMapWithLevelData();
+      PacManCharacter.Lives--;
+      PacManCharacter.HasDied = false;
+      DotsEatenThisLevel = 0;
+    }
 
     public void Tick()
     {
-      SetGhostHeading(YellowGhost);
-      SetGhostHeading(BlueGhost);
-      SetGhostHeading(RedGhost);
-      MoveGhost(YellowGhost);
-      MoveGhost(BlueGhost);
-      MoveGhost(RedGhost);
+      UpdateGhosts();
       MovePacMan();
-      AnimatePacManMouth();
 
-      if (HasDied)
+      if (GhostCollideWithPacman())
       {
-        _grid = new Grid(Level.RowCount, Level.ColumnCount);
-        InitializeMapWithLevelData();
-        Lives--;
-        HasDied = false;
-        DotsEatenThisLevel = 0;
+        PacManDieAndReStartLevelSequence();
       }
       if (_remainingDots.Count == 0)
       {

@@ -6,7 +6,10 @@ namespace PacManGame
 
     public Direction Heading;
 
-    public bool MouthOpen = false;
+    public int Lives = 3;
+    public bool HasDied = false;
+
+    public bool MouthOpen = true;
 
     public PacMan(int row, int column)
     {

@@ -10,8 +10,6 @@ namespace PacManGame
 
     public Direction ParseInputToDirection()
     {
-      // while (IsKeyDown(InputKey))
-      // {
         if (InputKey == ConsoleKey.W)
         {
           return Direction.North;
@@ -28,30 +26,10 @@ namespace PacManGame
         {
           return Direction.West;
         }
-      // }
+  
       throw new InvalidOperationException();
 
     }
-
-    public static Boolean IsKeyDown(ConsoleKey key)
-    {
-      if (key != ConsoleKey.A || key != ConsoleKey.W || key != ConsoleKey.S || key != ConsoleKey.D)
-      {
-        if (key == ConsoleKey.A || key == ConsoleKey.W || key == ConsoleKey.S || key == ConsoleKey.D)
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-      else
-      {
-        return false;
-      }
-    }
-
 
 
   }

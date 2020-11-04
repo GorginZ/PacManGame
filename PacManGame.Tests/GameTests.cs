@@ -48,7 +48,7 @@ namespace PacManGame.Tests
         + "#............##............#\n"
         + "######.##############.######\n";
 
-      var actualGrid = consoleRenderer.GetStateOfMapAsString(game.Grid, game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen);
+      var actualGrid = consoleRenderer.GetStateOfMapAsString(game);
 
       Assert.Equal(expectedGrid, actualGrid);
     }
@@ -98,7 +98,7 @@ namespace PacManGame.Tests
     + ".......\n";
 
       game.Tick();
-      var actualGrid = consoleRenderer.GetStateOfMapAsString(game.Grid, game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen);
+      var actualGrid = consoleRenderer.GetStateOfMapAsString(game);
 
       Assert.Equal(expectedGrid, actualGrid);
     }
@@ -117,7 +117,7 @@ namespace PacManGame.Tests
     + "......|\n";
 
       game.Tick();
-      var actualGrid = consoleRenderer.GetStateOfMapAsString(game.Grid, game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen);
+      var actualGrid = consoleRenderer.GetStateOfMapAsString(game);
 
       Assert.Equal(expectedGrid, actualGrid);
     }

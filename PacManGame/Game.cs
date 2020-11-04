@@ -10,7 +10,7 @@ namespace PacManGame
     public int CurrentLevel = 1;
     public static LevelCore Level;
 
-    public Grid Grid;
+    public Grid Grid { get; private set;}
     public PacMan PacManCharacter;
 
     public List<Ghost> Ghosts;

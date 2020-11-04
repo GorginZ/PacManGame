@@ -31,7 +31,7 @@ namespace PacManGame
       {
         while (true)
         {
-          renderer.Write(renderer.GetStateOfMapAsString(game.Grid, game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen));
+          renderer.Write(renderer.GetStateOfMapAsString(game));
           Thread.Sleep(300);
           lock (programLock)
           {

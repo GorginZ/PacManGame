@@ -9,17 +9,17 @@ namespace PacManGame
     public void Write(string myString) => Console.WriteLine(myString);
 
 
-  public String GetStateOfMapAsString(Grid _grid, Direction pacManHeading, bool pacManMouthOpen) 
+  public String GetStateOfMapAsString(Game game) 
     {
       var printableGrid = new StringBuilder();
 
-      for (int i = 0; i < _grid.RowCount; i++)
+      for (int i = 0; i < game.Grid.RowCount; i++)
       {
-        for (int j = 0; j < _grid.ColumnCount; j++)
+        for (int j = 0; j < game.Grid.ColumnCount; j++)
         {
           var coordinate = new RowColumn(i, j);
 
-          printableGrid.Append(_grid[coordinate].CellAsString(GetPacManSymbol(pacManHeading, pacManMouthOpen)));
+          printableGrid.Append(game.Grid[coordinate].CellAsString(GetPacManSymbol(game.PacManCharacter.Heading, game.PacManCharacter.MouthOpen)));
         }
         printableGrid.Append("\n");
       }

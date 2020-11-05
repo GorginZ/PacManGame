@@ -8,14 +8,17 @@ namespace PacManGame
     public static void Run(IRenderer renderer, IUserInput userInput, LevelCore level)
     {
       var game = new Game(level);
-
       var programLock = new object();
+      bool running = true;
 
       Thread listenForUserInput = new Thread(() =>
       {
-        while (true)
+        while (running)
         {
-          userInput.ReadInputDirection();
+          
+          userInput.SetInputKey();
+          userInput.SetContinuePlay();
+          // SetRunning();
           var userInputDirection = userInput.ParseInputToDirection();
           lock (programLock)
           {
@@ -27,7 +30,7 @@ namespace PacManGame
 
       Thread render = new Thread(() =>
            {
-             while (true)
+             while (running)
              {
                Thread.Sleep(300);
                lock (programLock)
@@ -39,5 +42,11 @@ namespace PacManGame
            }); render.Start();
 
     }
+
+    // public static void SetRunning()
+    // {
+    //   var running = (userInput.ContinuePlay) ? true : false;
+
+    // }
   }
 }

@@ -7,6 +7,12 @@ namespace PacManGame
   {
     public void Write(string myString) => Console.WriteLine(myString);
 
+    public void RenderMenu()
+    {
+      Write("Welcome to PacManGame");
+      Write("To Play press P, to quit at any time hit escape");
+    }
+
     public void Render(Game game)
     {
       Console.Clear();

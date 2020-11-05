@@ -2,12 +2,6 @@
 
 My PacManGame is a console version of PacMan. This kata presented some really fun and interesting challenges and is still a WIP. I am refactoring large components and plan on restructuring and approcahing a few things differently - for instance I am intersted in reprsenting my grid differently.
 
-This is what gameplay currently looks like
-
-<img src="docs/PacmanScreen.png">
-
-
-
 ## Challenges and focuses
 
 ------
@@ -20,7 +14,7 @@ A concern throughout this project is building game logic core that isn't tied to
 
 The kata asks us to develop a console game, however I think this is an invaluable opportunity to try and think about things like decoupling and cohesiveness.
 
-The game class curently hosts a number of functions that are tied up with console implementation and I feel undermine my cohesive 'core'. Below are two functions that illustrate a potentially problematic coupling to a console ipmlementation.  They come from the need to visualize the game and 'animate' it.
+The game class previously hosted a couple of functions that are tied up with console implementation that undermined the cohesive 'core' I'm trying to build. These functions come from the need to visualize the game and 'animate' it.
 
 
 
@@ -72,13 +66,50 @@ public String GetStateOfMapAsString()
 
 
 
-I have pulled these off into a ConsoleRenderer class and will write more about this. 
+I have pulled these off into a ConsoleRenderer class and created a ConsoleImplementation directory where anythign strictly consol implementation sits. My ConsoleRenderer class implements a IRender interface member Render(), as well as the above functions.
 
-Animating 
+ I am now able to pass in a renderer, input type and level into my GamePlay run func.
 
-The options to 'animate' this game so it feels playable are limited by the form. My game renders a string grid, and so everything must move in the single tick() frame (as specified in the kata) and so that's where the 'animating' of pacmans mouth occurs.
 
- I choose to add this feature last after I knew how my game was 'moving' and as such it was very simple to add on. I also gave this low priority as it is a feature I see is explicitely only relevant to a console implementation of this game.
+
+```c#
+using System;
+using System.Threading;
+
+namespace PacManGame
+{
+  class Program
+  {
+    static void Main(string[] args)
+    {      
+      var level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt"));
+      var renderer = new ConsoleRenderer();
+      var userInput = new ConsoleUserInput();
+      GamePlay.Run(renderer, userInput, level);
+    }
+  }
+}
+```
+
+
+
+
+
+#### Animating 
+
+my console renderer renders a string which reflects the current state of the games grid data. It also renders stats like score, level, lives.
+
+<img src="docs/PacmanScreen.png">
+
+this data is updated every time the game Tick() function is called. 
+
+
+
+```c#
+
+```
+
+
 
 
 

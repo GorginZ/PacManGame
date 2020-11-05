@@ -11,7 +11,7 @@ namespace PacManGame
 
       var programLock = new object();
 
-      new Thread(() =>
+      Thread listenForUserInput = new Thread(() =>
       {
         while (true)
         {
@@ -23,20 +23,20 @@ namespace PacManGame
           }
         }
 
-      }).Start();
+      }); listenForUserInput.Start();
 
-      new Thread(() =>
-      {
-        while (true)
-        {
-          Thread.Sleep(300);
-          lock (programLock)
-          {
-            renderer.Render(game);
-            game.Tick();
-          }
-        }
-      }).Start();
+      Thread render = new Thread(() =>
+           {
+             while (true)
+             {
+               Thread.Sleep(300);
+               lock (programLock)
+               {
+                 renderer.Render(game);
+                 game.Tick();
+               }
+             }
+           }); render.Start();
 
     }
   }

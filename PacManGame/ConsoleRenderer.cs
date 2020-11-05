@@ -3,13 +3,21 @@ using System.Text;
 
 namespace PacManGame
 {
-  public class ConsoleRenderer : IOutput
+  public class ConsoleRenderer : IRenderer
   {
-    
     public void Write(string myString) => Console.WriteLine(myString);
 
+    public void Render(Game game)
+    {
+      Console.Clear();
+      Write(GetStateOfMapAsString(game));
+      Write($"Current Level: {game.CurrentLevel}");
+      Write($"Dots Eaten This Level: {game.DotsEatenThisLevel}");
+      Write($"Score: {game.Score}");
+      Write($"Lives: {game.PacManCharacter.Lives}");
+    }
 
-  public String GetStateOfMapAsString(Game game) 
+    public String GetStateOfMapAsString(Game game)
     {
       var printableGrid = new StringBuilder();
 
@@ -28,7 +36,7 @@ namespace PacManGame
     }
 
 
-    public string GetPacManSymbol(Direction pacManHeading, bool pacManMouthOpen) 
+    public string GetPacManSymbol(Direction pacManHeading, bool pacManMouthOpen)
     {
       switch (pacManHeading)
       {
@@ -52,7 +60,7 @@ namespace PacManGame
           throw new System.ArgumentOutOfRangeException(nameof(pacManHeading));
       }
 
-      
+
     }
 
   }

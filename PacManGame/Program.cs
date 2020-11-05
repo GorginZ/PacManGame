@@ -7,8 +7,10 @@ namespace PacManGame
   {
     static void Main(string[] args)
     {      
-
-      ConsoleGamePlay.Run();
+      var level = LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt"));
+      var renderer = new ConsoleRenderer();
+      var userInput = new ConsoleUserInput();
+      GamePlay.Run(renderer, userInput, level);
 
       // var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
       // var userInput = new ConsoleUserInput();

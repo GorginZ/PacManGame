@@ -5,7 +5,7 @@ namespace PacManGame
 {
   public class GamePlay
   {
-    public static void Run(IRenderer renderer, ConsoleUserInput userInput, LevelCore level)
+    public static void Run(IRenderer renderer, IUserInput userInput, LevelCore level)
     {
       var game = new Game(level);
 

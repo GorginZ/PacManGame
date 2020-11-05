@@ -32,7 +32,7 @@ namespace PacManGame
 
     private string GetLevelPathName()
     {
-      return $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level{CurrentLevel}.txt";
+      return $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level{CurrentLevel}.txt";
     }
 
     private void InitializeMapWithLevelData() // kinda console only

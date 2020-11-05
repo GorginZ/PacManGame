@@ -10,7 +10,7 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManCanMoveOnTheBoardOnTick()
     {
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")));
       var pacManBeforeTick = game.PacManCharacter.CurrentPosition;
 
       game.SetPacManHeading(Direction.East);
@@ -25,7 +25,7 @@ namespace PacManGame.Tests
     [Fact]
     public void MapInitializesInCorrectFormat()
     {
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")));
       var consoleRenderer = new ConsoleRenderer();
 
 
@@ -56,7 +56,7 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManWontRotateIntoAWallAndHeadingRemainsAsItWasPreviously()
     {
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")));
       game.SetPacManHeading(Direction.East);
       game.Tick();
       game.SetPacManHeading(Direction.North);
@@ -66,7 +66,7 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManStopsAtAWall()
     {
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")));
 
       game.SetPacManHeading(Direction.North);
       var pacManPositionBeforeTick = game.PacManCharacter.CurrentPosition;
@@ -79,7 +79,7 @@ namespace PacManGame.Tests
     [Fact]
     public void ScoreIncrementsWhenPacManEatDot()
     {
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/LevelMaps/level1.txt")));
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")));
       game.SetPacManHeading(Direction.East);
       game.Tick();
       Assert.Equal(1, game.DotsEatenThisLevel);

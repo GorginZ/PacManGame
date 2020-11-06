@@ -11,6 +11,7 @@ namespace PacManGame
     {
       Console.Clear();
       Write(GetStateOfMapAsString(game));
+      Write("*** Press esc key to exit ***");
       Write($"Current Level: {game.CurrentLevel}");
       Write($"Dots Eaten This Level: {game.DotsEatenThisLevel}");
       Write($"Score: {game.Score}");

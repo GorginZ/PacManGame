@@ -8,36 +8,37 @@ namespace PacManGame
     public static void Run(IRenderer renderer, IUserInput userInput, LevelCore level)
     {
       var game = new Game(level);
-
       var programLock = new object();
 
       Thread listenForUserInput = new Thread(() =>
-      {
-        while (true)
-        {
-          userInput.ReadInputDirection();
-          var userInputDirection = userInput.ParseInputToDirection();
-          lock (programLock)
-          {
-            game.SetPacManHeading(userInputDirection);
-          }
-        }
+       {
+         while (userInput.Command < CurrentCommand.Quit)
+         {
+           userInput.SetCurrentCommand();
+           var userInputDirection = userInput.ParseInputToDirection();
+           lock (programLock)
+           {
+             game.SetPacManHeading(userInputDirection);
+           }
+         }
 
-      }); listenForUserInput.Start();
+       }); listenForUserInput.Start();
 
       Thread render = new Thread(() =>
            {
-             while (true)
+             while (userInput.Command < CurrentCommand.Quit)
              {
                Thread.Sleep(300);
                lock (programLock)
                {
                  renderer.Render(game);
                  game.Tick();
+
                }
              }
            }); render.Start();
-
     }
+
+
   }
 }

@@ -6,19 +6,20 @@ namespace PacManGame
   {
     public ConsoleKey InputKey { get; set; }
 
-    public bool ContinuePlay { get; set; } = true;
+    public CurrentCommand Command { get; set; }
 
-    public void SetCurrentCommand() => InputKey = Console.ReadKey(true).Key;
+    public void SetInputKey() => InputKey = Console.ReadKey(true).Key;
 
-    public void SetContinuePlay()
+    public void SetCurrentCommand()
     {
+      SetInputKey();
       if (InputKey == ConsoleKey.Escape)
       {
-        ContinuePlay = false;
+        Command = CurrentCommand.Quit;
       }
-      if (InputKey == ConsoleKey.P)
+      else
       {
-        ContinuePlay = true;
+        Command = CurrentCommand.Controller;
       }
     }
 

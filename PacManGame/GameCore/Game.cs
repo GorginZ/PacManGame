@@ -64,7 +64,7 @@ namespace PacManGame
 
     }
 
-    public void SetGhostHeading(Ghost ghost)
+    private void SetGhostHeading(Ghost ghost)
     {
       if (!IsValidMove(ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount)))
       {
@@ -74,12 +74,12 @@ namespace PacManGame
 
     }
 
-    public bool IsValidMove(RowColumn potentialMove)
+    private bool IsValidMove(RowColumn potentialMove)
     {
       return Grid[potentialMove].CellContents != CellType.Wall;
     }
 
-    public void MoveGhost(Ghost ghost)
+    private void MoveGhost(Ghost ghost)
     {
       var ghostsOldPosition = ghost.CurrentPosition;
 
@@ -97,7 +97,7 @@ namespace PacManGame
       }
     }
 
-    public void MovePacMan()
+    private void MovePacMan()
     {
       var pacManPotentialMove = PacManCharacter.CurrentPosition.GetNeighbour(PacManCharacter.Heading, Level.RowCount, Level.ColumnCount);
 
@@ -119,7 +119,7 @@ namespace PacManGame
       }
     }
 
-    public void ApplyEatDotRules()
+    private void ApplyEatDotRules()
     {
       DotsEatenThisLevel++;
       Score++;
@@ -128,7 +128,7 @@ namespace PacManGame
 
     }
 
-    public void LevelUp()
+    private void LevelUp()
     {
       CurrentLevel++;
       Grid = new Grid(Level.RowCount, Level.ColumnCount);
@@ -140,7 +140,7 @@ namespace PacManGame
       DotsEatenThisLevel = 0;
     }
 
-    public void OscillatePacManMouthState()
+    private void OscillatePacManMouthState()
     {
       if (PacManCharacter.MouthOpen)
       {
@@ -152,12 +152,12 @@ namespace PacManGame
       }
     }
 
-    public bool GhostCollideWithPacman()
+    private bool GhostCollideWithPacman()
     {
       return Ghosts.Any(x => x.CurrentPosition.Equals(PacManCharacter.CurrentPosition));
     }
 
-    public void UpdateGhosts()
+    private void UpdateGhosts()
     {
       foreach (Ghost ghost in Ghosts)
       {
@@ -166,7 +166,7 @@ namespace PacManGame
       }
     }
 
-    public void PacManDieAndReStartLevelSequence()
+    private void PacManDieAndReStartLevelSequence()
     {
       Grid = new Grid(Level.RowCount, Level.ColumnCount);
       InitializeMapWithLevelData();

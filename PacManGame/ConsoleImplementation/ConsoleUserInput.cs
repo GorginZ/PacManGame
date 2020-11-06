@@ -39,7 +39,7 @@ namespace PacManGame
       {
         return Direction.West;
       }
-
+ 
       throw new InvalidOperationException();
 
     }

@@ -12,21 +12,20 @@ namespace PacManGame
       bool running = true;
 
       Thread listenForUserInput = new Thread(() =>
-      {
-        while (running)
-        {
-          
-          userInput.SetInputKey();
-          userInput.SetContinuePlay();
-          // SetRunning();
-          var userInputDirection = userInput.ParseInputToDirection();
-          lock (programLock)
-          {
-            game.SetPacManHeading(userInputDirection);
-          }
-        }
+       {
+         while (running)
+         {
+           userInput.SetInputKey();
+           var userInputDirection = userInput.ParseInputToDirection();
+           userInput.SetContinuePlay();
+           SetRunning(userInput);
+           lock (programLock)
+           {
+             game.SetPacManHeading(userInputDirection);
+           }
+         }
 
-      }); listenForUserInput.Start();
+       }); listenForUserInput.Start();
 
       Thread render = new Thread(() =>
            {
@@ -43,10 +42,10 @@ namespace PacManGame
 
     }
 
-    // public static void SetRunning()
-    // {
-    //   var running = (userInput.ContinuePlay) ? true : false;
+    public static void SetRunning(IUserInput userInput)
+    {
+      var running = (userInput.ContinuePlay) ? true : false;
 
-    // }
+    }
   }
 }

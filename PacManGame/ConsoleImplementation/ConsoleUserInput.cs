@@ -8,7 +8,7 @@ namespace PacManGame
 
     public bool ContinuePlay { get; set; } = true;
 
-    public void SetInputKey() => InputKey = Console.ReadKey(true).Key;
+    public void SetCurrentCommand() => InputKey = Console.ReadKey(true).Key;
 
     public void SetContinuePlay()
     {
@@ -21,28 +21,43 @@ namespace PacManGame
         ContinuePlay = true;
       }
     }
+
     public Direction ParseInputToDirection()
     {
-      if (InputKey == ConsoleKey.W)
+      return InputKey switch
       {
-        return Direction.North;
-      }
-      else if (InputKey == ConsoleKey.S)
-      {
-        return Direction.South;
-      }
-      else if (InputKey == ConsoleKey.D)
-      {
-        return Direction.East;
-      }
-      else if (InputKey == ConsoleKey.A)
-      {
-        return Direction.West;
-      }
- 
-      throw new InvalidOperationException();
+        ConsoleKey.W => Direction.North,
+        ConsoleKey.S => Direction.South,
+        ConsoleKey.A => Direction.West,
+        ConsoleKey.D => Direction.East,
+        _ => Direction.North
+
+      };
 
     }
+
+    // public Direction ParseInputToDirection()
+    // {
+    //   if (InputKey == ConsoleKey.W)
+    //   {
+    //     return Direction.North;
+    //   }
+    //   else if (InputKey == ConsoleKey.S)
+    //   {
+    //     return Direction.South;
+    //   }
+    //   else if (InputKey == ConsoleKey.D)
+    //   {
+    //     return Direction.East;
+    //   }
+    //   else if (InputKey == ConsoleKey.A)
+    //   {
+    //     return Direction.West;
+    //   }
+
+    //   throw new InvalidOperationException();
+
+    // }
 
 
   }

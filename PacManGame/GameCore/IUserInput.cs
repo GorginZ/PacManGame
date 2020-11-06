@@ -13,6 +13,6 @@ namespace PacManGame
 
     void SetContinuePlay();
 
-    void SetInputKey();
+    void SetCurrentCommand();
   }
 }

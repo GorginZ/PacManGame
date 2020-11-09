@@ -3,9 +3,9 @@ namespace PacManGame.Tests
     public class AcceptanceTests
     {
 
-      public void PlayerCanProgressThroughGameLevels()
+      public void PlayerCanProgressToNextLevelWhenAllDotsAreEaten()
       {
-
+          
       }
       public void CanFinishGame()
       {

@@ -5,9 +5,9 @@ namespace PacManGame
 {
   public class GamePlay
   {
-    public static void Run(IRenderer renderer, IUserInput userInput, LevelCore level)
+    public static void Run(IRenderer renderer, IUserInput userInput, LevelCore level, IGhostDirectionGenerator directionGenerator)
     {
-      var game = new Game(level);
+      var game = new Game(level, directionGenerator);
       var programLock = new object();
 
       Thread listenForUserInput = new Thread(() =>
@@ -32,7 +32,7 @@ namespace PacManGame
                lock (programLock)
                {
                  renderer.Render(game);
-                 game.Tick();
+                 game.Tick(directionGenerator);
 
                }
              }

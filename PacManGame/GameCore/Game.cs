@@ -21,7 +21,7 @@ namespace PacManGame
     public int DotsEatenThisLevel = 0;
     public int Score = 0;
 
-    public Game(LevelCore level)
+    public Game(LevelCore level, IGhostDirectionGenerator directionGenerator)
     {
       Level = level;
       PacManCharacter = new PacMan(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
@@ -64,12 +64,11 @@ namespace PacManGame
 
     }
 
-    private void SetGhostHeading(Ghost ghost)
+    private void SetGhostHeading(Ghost ghost, IGhostDirectionGenerator directionGenerator)
     {
       if (!IsValidMove(ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount)))
       {
-        var rng = new Random();
-        ghost.Heading = (Direction)rng.Next((int)Direction.North, (int)Direction.West + 1);
+        ghost.Heading = directionGenerator.SetDirection();
       }
 
     }
@@ -156,11 +155,11 @@ namespace PacManGame
       return Ghosts.Any(x => x.CurrentPosition.Equals(PacManCharacter.CurrentPosition));
     }
 
-    private void UpdateGhosts()
+    private void UpdateGhosts(IGhostDirectionGenerator directionGenerator)
     {
       foreach (Ghost ghost in Ghosts)
       {
-        SetGhostHeading(ghost);
+        SetGhostHeading(ghost, directionGenerator);
         MoveGhost(ghost);
       }
     }
@@ -174,9 +173,9 @@ namespace PacManGame
       DotsEatenThisLevel = 0;
     }
 
-    public void Tick()
+    public void Tick(IGhostDirectionGenerator directionGenerator)
     {
-      UpdateGhosts();
+      UpdateGhosts(directionGenerator);
       MovePacMan();
 
       if (GhostCollideWithPacman())

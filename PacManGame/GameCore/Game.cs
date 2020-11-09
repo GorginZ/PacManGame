@@ -136,7 +136,6 @@ namespace PacManGame
       Level = LevelCore.Parse(System.IO.File.ReadAllText(levelPath));
       InitializeMapWithLevelData();
       PacManCharacter.HasDied = false;
-      Score += DotsEatenThisLevel;
       DotsEatenThisLevel = 0;
     }
 

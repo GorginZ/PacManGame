@@ -22,7 +22,7 @@ namespace PacManGame
     {
       var printableGrid = new StringBuilder();
 
-      for (int i = 0; i < game.Grid.RowCount; i++)
+      for (int i = 0; i < game.Grid.RowCount-1; i++)
       {
         for (int j = 0; j < game.Grid.ColumnCount; j++)
         {

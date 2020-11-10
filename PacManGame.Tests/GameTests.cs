@@ -18,7 +18,6 @@ namespace PacManGame.Tests
 
       game.SetPacManHeading(Direction.East);
       game.Tick(directionSetter);
-      
 
       var pacManAfterTick = game.PacManCharacter.CurrentPosition;
 
@@ -42,8 +41,8 @@ namespace PacManGame.Tests
         + "#.#  #.#   #.##.#   #.#  #.#\n"
         + "#.####.#####.##.#####.####.#\n"
         + "............................\n"
-        + "#.####.######  ######.####.#\n"
-        + "#.#  #.###       ####.#  #.#\n"
+        + "#.####.#####    #####.####.#\n"
+        + "#.#  #.##          ##.#  #.#\n"
         + "#.####.##############.####.#\n"
         + ".............V..............\n"
         + "#.####.#####.##.#####.####.#\n"
@@ -52,7 +51,6 @@ namespace PacManGame.Tests
         + "#.####.#####.##.#####.####.#\n"
         + "#............##............#\n"
         + "######.##############.######\n";
-
       var actualGrid = consoleRenderer.GetStateOfMapAsString(game);
 
       Assert.Equal(expectedGrid, actualGrid);
@@ -94,43 +92,70 @@ namespace PacManGame.Tests
       Assert.Equal(1, game.DotsEatenThisLevel);
     }
     [Fact]
-    public void PacManWrapsAroundRows()
+    public void PacManWrapsAroundHorizontalAxis()
     {
       var consoleRenderer = new ConsoleRenderer();
 
       var directionSetter = new SetDirectionGenerator();
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
       game.SetPacManHeading(Direction.East);
-
-      var expectedGrid =
-      "-..... \n"
-    + ".......\n"
-    + ".......\n";
-
       game.Tick(directionSetter);
-      var actualGrid = consoleRenderer.GetStateOfMapAsString(game);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      
+      var pacmanCharBeforeWrap = game.PacManCharacter.CurrentPosition;
+        
+      game.Tick(directionSetter);
+      var actualAfterWrap = game.PacManCharacter.CurrentPosition;
 
-      Assert.Equal(expectedGrid, actualGrid);
+      var beforeTickIndex = new RowColumn(10,27);
+      Assert.Equal(beforeTickIndex.Column, pacmanCharBeforeWrap.Column); 
+      Assert.Equal(0, actualAfterWrap.Column);
     }
 
     [Fact]
-    public void PacManWrapsAroundColumns()
+    public void PacManWrapsAroundVerticalAxis()
     {
       var consoleRenderer = new ConsoleRenderer();
 
       var directionSetter = new SetDirectionGenerator();
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
-      game.SetPacManHeading(Direction.North);
-
-      var expectedGrid =
-      "...... \n"
-    + ".......\n"
-    + "......|\n";
-
+      game.SetPacManHeading(Direction.East);
+      //8 7
       game.Tick(directionSetter);
-      var actualGrid = consoleRenderer.GetStateOfMapAsString(game);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.SetPacManHeading(Direction.South);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      game.Tick(directionSetter);
+      var pacmanIndexBeforeWrap = game.PacManCharacter.CurrentPosition.Row;
+      game.Tick(directionSetter);
+        
+      var actualAfterWrap = game.PacManCharacter.CurrentPosition.Row;
 
-      Assert.Equal(expectedGrid, actualGrid);
+      Assert.Equal(17, pacmanIndexBeforeWrap); 
+      Assert.Equal(0, actualAfterWrap);
     }
 
 

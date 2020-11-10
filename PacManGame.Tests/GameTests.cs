@@ -64,68 +64,30 @@ namespace PacManGame.Tests
     [Fact]
     public void PacManWrapsAroundHorizontalAxis()
     {
-      var consoleRenderer = new ConsoleRenderer();
-
+     var level = "...\n...\n..P";
       var directionSetter = new SetDirectionGenerator();
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
+      var game = new Game(LevelCore.Parse(level), directionSetter);
       game.SetPacManHeading(Direction.East);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      
-      var pacmanCharBeforeWrap = game.PacManCharacter.CurrentPosition;
         
       game.Tick(directionSetter);
-      var actualAfterWrap = game.PacManCharacter.CurrentPosition;
+      var actualColumnAfterWrap = game.PacManCharacter.CurrentPosition.Column;
 
-      var beforeTickIndex = new RowColumn(10,27);
-      Assert.Equal(beforeTickIndex.Column, pacmanCharBeforeWrap.Column); 
-      Assert.Equal(0, actualAfterWrap.Column);
+      Assert.Equal(0, actualColumnAfterWrap);
     }
 
     [Fact]
     public void PacManWrapsAroundVerticalAxis()
     {
-      var consoleRenderer = new ConsoleRenderer();
-
+       var level = "...\n...\n..P";
       var directionSetter = new SetDirectionGenerator();
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
-      game.SetPacManHeading(Direction.East);
-      //8 7
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
+      var game = new Game(LevelCore.Parse(level), directionSetter);
+
       game.SetPacManHeading(Direction.South);
       game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      game.Tick(directionSetter);
-      var pacmanIndexBeforeWrap = game.PacManCharacter.CurrentPosition.Row;
-      game.Tick(directionSetter);
         
-      var actualAfterWrap = game.PacManCharacter.CurrentPosition.Row;
+      var actualRowAfterWrap = game.PacManCharacter.CurrentPosition.Row;
 
-      Assert.Equal(17, pacmanIndexBeforeWrap); 
-      Assert.Equal(0, actualAfterWrap);
+      Assert.Equal(0, actualRowAfterWrap);
     }
 
   }

@@ -42,7 +42,7 @@ namespace PacManGame.Tests
         + "#.####.#####.##.#####.####.#\n"
         + "............................\n"
         + "#.####.#####    #####.####.#\n"
-        + "#.#  #.##          ##.#  #.#\n"
+        + "#.#  #.##    M     ##.#  #.#\n"
         + "#.####.##############.####.#\n"
         + ".............V..............\n"
         + "#.####.#####.##.#####.####.#\n"
@@ -170,16 +170,15 @@ namespace PacManGame.Tests
     {
       var directionSetter = new SetDirectionGenerator();
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
+      var  position = game.Ghosts[0].CurrentPosition;
+      var index = new RowColumn(position.Row, position.Column+1);
+      CellType cellTypeAtPosBeforeGhost = game.Grid[index].CellContents;
+
       game.Tick(directionSetter);
-      var position = game.Ghosts[0].CurrentPosition;
+      CellType cellTypeAtPosAfterGhost = game.Grid[index].CellContents;
       
-
-      // where wil it be what 
-      game.Tick(directionSetter);
-// ghost not ther anymore
-
-// at posiiton, is it a dot?
-//      Assert.Equal(positi)
+      Assert.Equal(cellTypeAtPosBeforeGhost,cellTypeAtPosAfterGhost);
     }
+
   }
 }

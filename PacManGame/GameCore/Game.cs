@@ -32,10 +32,10 @@ namespace PacManGame
 
     private string GetLevelPathName()
     {
-      return $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level{CurrentLevel}.txt";
+      return $"./GameCore/LevelConfig/LevelMaps/level{CurrentLevel}.txt";
     }
 
-    private void InitializeMapWithLevelData() // kinda console only
+    private void InitializeMapWithLevelData()
     {
       PacManCharacter.CurrentPosition = new RowColumn(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
 

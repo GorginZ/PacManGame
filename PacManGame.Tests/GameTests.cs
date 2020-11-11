@@ -12,12 +12,12 @@ namespace PacManGame.Tests
     {
 
       var directionSetter = new SetDirectionGenerator();
-      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
+      var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"./PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
       var pacManBeforeTick = game.PacManCharacter.CurrentPosition;
 
 
       game.SetPacManHeading(Direction.East);
-      game.Tick(directionSetter);
+      game.Tick();
 
       var pacManAfterTick = game.PacManCharacter.CurrentPosition;
 
@@ -32,7 +32,7 @@ namespace PacManGame.Tests
       var directionSetter = new SetDirectionGenerator();
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
       game.SetPacManHeading(Direction.East);
-      game.Tick(directionSetter);
+      game.Tick();
       game.SetPacManHeading(Direction.North);
 
       Assert.Equal(Direction.East, game.PacManCharacter.Heading);
@@ -46,7 +46,7 @@ namespace PacManGame.Tests
 
       game.SetPacManHeading(Direction.North);
       var pacManPositionBeforeTick = game.PacManCharacter.CurrentPosition;
-      game.Tick(directionSetter);
+      game.Tick();
       
       var pacManPositionAfterTick = game.PacManCharacter.CurrentPosition;
 
@@ -58,7 +58,7 @@ namespace PacManGame.Tests
       var directionSetter = new SetDirectionGenerator();
       var game = new Game(LevelCore.Parse(System.IO.File.ReadAllText(@"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level1.txt")), directionSetter);
       game.SetPacManHeading(Direction.East);
-      game.Tick(directionSetter);
+      game.Tick();
       Assert.Equal(1, game.DotsEatenThisLevel);
     }
     [Fact]
@@ -69,7 +69,7 @@ namespace PacManGame.Tests
       var game = new Game(LevelCore.Parse(level), directionSetter);
       game.SetPacManHeading(Direction.East);
         
-      game.Tick(directionSetter);
+      game.Tick();
       var actualColumnAfterWrap = game.PacManCharacter.CurrentPosition.Column;
 
       Assert.Equal(0, actualColumnAfterWrap);
@@ -83,7 +83,7 @@ namespace PacManGame.Tests
       var game = new Game(LevelCore.Parse(level), directionSetter);
 
       game.SetPacManHeading(Direction.South);
-      game.Tick(directionSetter);
+      game.Tick();
         
       var actualRowAfterWrap = game.PacManCharacter.CurrentPosition.Row;
 

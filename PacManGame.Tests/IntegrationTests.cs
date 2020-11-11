@@ -16,7 +16,7 @@ public class IntegrationTests
       var index = new RowColumn(position.Row, position.Column+1);
       CellType cellTypeAtPosBeforeGhost = game.Grid[index].CellContents;
 
-      game.Tick(directionSetter);
+      game.Tick();
       CellType cellTypeAtPosAfterGhost = game.Grid[index].CellContents;
       
       Assert.Equal(cellTypeAtPosBeforeGhost,cellTypeAtPosAfterGhost);

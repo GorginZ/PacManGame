@@ -32,7 +32,7 @@ namespace PacManGame
                lock (programLock)
                {
                  renderer.Render(game);
-                 game.Tick(directionGenerator);
+                 game.Tick();
 
                }
              }

@@ -9,7 +9,7 @@ namespace PacManGame
   {
     public int CurrentLevel = 1;
     public static LevelCore Level;
-
+    private IGhostDirectionGenerator _directionGenerator;
     public Grid Grid { get; private set;}
     public PacMan PacManCharacter;
 
@@ -26,16 +26,16 @@ namespace PacManGame
       Level = level;
       PacManCharacter = new PacMan(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
       Grid = new Grid(Level.RowCount, Level.ColumnCount);
-
+      _directionGenerator = directionGenerator;
       InitializeMapWithLevelData();
     }
 
     private string GetLevelPathName()
     {
-      return $"/Users/georgia.leng/Desktop/C#/PacManGame/PacManGame/GameCore/LevelConfig/LevelMaps/level{CurrentLevel}.txt";
+      return $"./GameCore/LevelConfig/LevelMaps/level{CurrentLevel}.txt";
     }
 
-    private void InitializeMapWithLevelData() // kinda console only
+    private void InitializeMapWithLevelData()
     {
       PacManCharacter.CurrentPosition = new RowColumn(Level.LevelPacMan[0].Row, Level.LevelPacMan[0].Column);
 
@@ -64,11 +64,11 @@ namespace PacManGame
 
     }
 
-    private void SetGhostHeading(Ghost ghost, IGhostDirectionGenerator directionGenerator)
+    private void SetGhostHeading(Ghost ghost)
     {
       if (!IsValidMove(ghost.CurrentPosition.GetNeighbour(ghost.Heading, Level.RowCount, Level.ColumnCount)))
       {
-        ghost.Heading = directionGenerator.SetDirection();
+        ghost.Heading = _directionGenerator.SetDirection();
       }
 
     }
@@ -155,11 +155,11 @@ namespace PacManGame
       return Ghosts.Any(x => x.CurrentPosition.Equals(PacManCharacter.CurrentPosition));
     }
 
-    private void UpdateGhosts(IGhostDirectionGenerator directionGenerator)
+    private void UpdateGhosts()
     {
       foreach (Ghost ghost in Ghosts)
       {
-        SetGhostHeading(ghost, directionGenerator);
+        SetGhostHeading(ghost);
         MoveGhost(ghost);
       }
     }
@@ -173,9 +173,9 @@ namespace PacManGame
       DotsEatenThisLevel = 0;
     }
 
-    public void Tick(IGhostDirectionGenerator directionGenerator)
+    public void Tick()
     {
-      UpdateGhosts(directionGenerator);
+      UpdateGhosts();
       MovePacMan();
 
       if (GhostCollideWithPacman())

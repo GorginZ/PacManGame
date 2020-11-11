@@ -16,9 +16,9 @@ namespace PacManGame
       CurrentPosition = new RowColumn(row, column);
     }
 
-    public void UpdateCurrentPosition(int rowCount, int columnCount)
+    public void UpdateCurrentPosition(int gridRowDimension, int gridColumnDimension)
     {
-      CurrentPosition = CurrentPosition.GetNeighbour(Heading, rowCount, columnCount);
+      CurrentPosition = CurrentPosition.GetNeighbour(Heading, gridRowDimension, gridColumnDimension);
     }
   }
 }
